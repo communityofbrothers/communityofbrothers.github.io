@@ -324,7 +324,7 @@ body.resizing{cursor:col-resize;user-select:none}
   padding:clamp(20px,2.6vw,30px) clamp(16px,2vw,24px) 60px;
   max-height:calc(100vh - 66px);overflow-y:auto;position:sticky;
   top:calc(66px + env(safe-area-inset-top,0px))}
-.notecol .nt{font-family:var(--sans);font-size:.63rem;letter-spacing:.2em;
+.notecol .nt,.mobnotes .nt{font-family:var(--sans);font-size:.63rem;letter-spacing:.2em;
   text-transform:uppercase;color:var(--gold-lt);padding-bottom:10px;
   border-bottom:1px solid rgba(224,192,99,.18);margin-bottom:18px}
 .note{margin-bottom:22px}
@@ -337,7 +337,7 @@ body.resizing{cursor:col-resize;user-select:none}
 .note .nb b{color:#E4E9F1;font-weight:600}
 .intro .nb{color:#B6C1D1}
 .nonote{color:#7F8CA3;font-size:.98rem;line-height:1.6;font-style:italic}
-.notecol .nt{font-size:.7rem}
+.notecol .nt,.mobnotes .nt{font-size:.7rem}
 .note .nh{font-size:clamp(1.02rem,.95rem + .2vw,1.14rem)}
 .note .nr{font-size:.72rem}
 details.bintro{margin-bottom:18px;border-bottom:1px solid rgba(224,192,99,.16);padding-bottom:12px}
@@ -435,6 +435,70 @@ body.menuopen{overflow:hidden}
 .pask{font-family:var(--sans);font-size:.78rem;color:var(--gold-lt);margin-top:4px;
   display:flex;gap:7px;align-items:baseline}
 .pask::before{content:"\25B8"}
+/* added study-note markers, history drop-downs, key words, sources */
+.scr .nmark{display:block;text-indent:0;font-family:var(--sans);font-size:.68rem;font-weight:500;
+  letter-spacing:.13em;text-transform:uppercase;color:#A9B4C6;margin:16px 0 8px;padding:2px 0 2px 10px;
+  border-left:2px solid rgba(224,192,99,.55);cursor:pointer;line-height:1.5}
+.scr .nmark::before{content:"Study note \00B7  ";color:var(--gold-lt)}
+.scr .nmark::after{content:" \2192 notes";color:#7F8CA3}
+.scr .nmark:hover,.scr .nmark:focus{color:#fff;outline:none}
+.hist{margin:12px 0 10px;border:1px solid rgba(224,192,99,.24);background:rgba(224,192,99,.045)}
+.hist summary{list-style:none;cursor:pointer;padding:9px 36px 10px 12px;position:relative;
+  display:flex;flex-wrap:wrap;gap:3px 9px;align-items:center}
+.hist summary::-webkit-details-marker{display:none}
+.hist summary::after{content:"+";position:absolute;right:12px;top:9px;color:var(--gold-lt);
+  font-family:var(--sans);font-size:1.05rem}
+.hist[open] summary::after{content:"\2013"}
+.hist summary:hover .ht{color:#fff}
+.hk{display:block;width:100%;font-family:var(--sans);font-size:.6rem;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--gold-lt)}
+.ht{font-family:var(--body);color:#EEF1F6;font-size:1.04rem;font-weight:500;line-height:1.35}
+.conf{font-family:var(--sans);font-size:.6rem;font-weight:500;letter-spacing:.09em;
+  text-transform:uppercase;padding:2px 7px;border-radius:2px;white-space:nowrap;vertical-align:2px}
+.c-est{background:rgba(120,190,140,.17);color:#A4D8B3}
+.c-wide{background:rgba(140,180,225,.17);color:#AFCBEA}
+.c-deb{background:rgba(232,180,95,.17);color:#EBC283}
+.c-div{background:rgba(230,140,120,.18);color:#EDA997}
+.hb{padding:2px 12px 12px}
+.hb p{color:#B9C3D2;font-size:clamp(1rem,.92rem + .18vw,1.08rem);line-height:1.66;margin:0 0 11px}
+.hb p b{color:#E4E9F1;font-weight:600}
+.srch{font-family:var(--sans);font-size:.6rem;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:#8B97AC;margin:12px 0 5px}
+.srcl{list-style:none;margin:0;padding:0}
+.srcl li{font-family:var(--sans);font-size:.78rem;line-height:1.5;color:#A9B4C6;
+  margin:0 0 5px;padding-left:13px;position:relative}
+.srcl li::before{content:"\2013";position:absolute;left:0;color:#6F7C93}
+.srcl a{color:#DCC57E;text-decoration:underline;text-decoration-color:rgba(224,192,99,.4);
+  text-underline-offset:2px;overflow-wrap:anywhere}
+.srcl a:hover{color:#fff}
+.howlbl{background:none;border:0;padding:0;margin-top:8px;font-family:var(--sans);
+  font-size:.7rem;color:#8B97AC;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.howlbl:hover{color:var(--gold-lt)}
+.psrc{margin:8px 0 4px}
+.psrc summary{list-style:none;cursor:pointer;font-family:var(--sans);font-size:.62rem;
+  font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:#8B97AC;
+  display:inline-flex;gap:6px}
+.psrc summary::-webkit-details-marker{display:none}
+.psrc summary::after{content:"+"}
+.psrc[open] summary::after{content:"\2013"}
+.psrc summary:hover{color:var(--gold-lt)}
+.psrc .srcl{margin-top:8px}
+.kw{margin:2px 0 10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.kw .pl{width:100%;font-family:var(--sans);font-size:.66rem;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;color:#8B97AC}
+.kwb{background:rgba(255,255,255,.06);border:1px solid rgba(224,192,99,.32);color:var(--gold-lt);
+  font-family:var(--sans);font-size:.76rem;padding:5px 11px;cursor:pointer;border-radius:2px}
+.kwb:hover{border-color:var(--gold-lt)}
+.kwb[aria-expanded="true"]{background:var(--gold-lt);color:var(--navy);border-color:var(--gold-lt)}
+.kwp{width:100%;background:rgba(255,255,255,.05);border-left:2px solid var(--gold-lt);
+  padding:10px 13px 6px;margin-top:4px}
+.kwp p{color:#B9C3D2;font-size:clamp(.98rem,.92rem + .15vw,1.06rem);line-height:1.62;margin:0 0 9px}
+.kwp p b{color:#E4E9F1;font-weight:600}
+.kwh{font-family:var(--display);color:#F0F3F8;font-weight:600;margin-bottom:4px}
+.bhist .hwrap{margin-top:12px}
+.hitem{margin:0 0 18px}
+.hitem .ht{display:block;margin-bottom:5px}
+.hitem .hb{padding:0}
 .scr .s.hasnote{cursor:pointer}
 .scr .s.hasnote::after{content:" \2192 notes";font-family:var(--sans);font-size:.62rem;
   letter-spacing:.12em;text-transform:uppercase;color:#7F8CA3;margin-left:8px;font-weight:400}
@@ -488,6 +552,10 @@ body.menuopen{overflow:hidden}
 .stance summary::after{content:"+";font-size:.95rem;line-height:1}
 .stance[open] summary::after{content:"\2013"}
 .stance summary:hover{color:#fff}
+.stance h3{font-family:var(--sans);font-size:.66rem;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold-lt);margin:24px 0 2px;scroll-margin-top:84px}
+.stance p b{color:#E4E9F1;font-weight:600}
+.stance .conf{margin-right:6px}
 .stance p{color:#A9B4C6;font-size:.98rem;line-height:1.6;margin:12px 0 10px;
   max-width:60em}
 .bsrch{display:flex;gap:8px;margin:18px 0 4px;max-width:520px}
@@ -841,20 +909,86 @@ body.menuopen{overflow:hidden}
       <button type="submit">Search</button>
     </form>
     <details class="stance" id="stance">
-      <summary>Where these notes stand</summary>
-      <p>The notes are ours, written for our own men. They lean Reformed in
-        theology and are written in plain evangelical language rather than in
-        the vocabulary of any one tradition.</p>
-      <p>Where Christians genuinely divide &mdash; the days of creation,
-        baptism, the Lord&rsquo;s Supper, election, spiritual gifts today, men
-        and women in the church, the millennium &mdash; we say so, name the main
-        positions fairly, and tell you which one we hold and why. Where the
-        manuscripts are disputed, as at Mark 16:9 and John 7:53, we flag it
-        rather than pass over it. Where a question is genuinely open, we would
-        rather say that than sound more certain than the evidence allows.</p>
-      <p style="margin-bottom:0">Nothing here replaces your own church or your
-        own reading. If you think a note is wrong, tell us and we will look at
-        it again.</p>
+      <summary>About these notes</summary>
+      <h3 id="about-how">How to use them</h3>
+      <p>Every passage has a card with up to four parts. <b>Context</b> sets the scene.
+        <b>Meaning</b> explains what the passage says and how its argument runs.
+        <b>Big idea</b> gives the point in a sentence. <b>Where readings differ</b>
+        appears only where Christians or scholars genuinely disagree. Some cards also have
+        <b>Key words</b> (tap one for a plain definition, and how different traditions
+        understand it), a <b>History &amp; archaeology</b> drop-down, and the
+        <b>sources</b> behind the note, linked so you can check them yourself. In the Bible
+        text, tap a heading marked &ldquo;notes&rdquo; to jump to its card. Lines marked
+        &ldquo;Study note&rdquo; are places where we have split a passage ourselves; the
+        other headings come from the translation.</p>
+      <h3 id="about-stand">Where we stand</h3>
+      <p>The notes are written by the leaders of Community of Brothers, for our own men and
+        for anyone else who finds them useful. On what Christians have always held together
+        &mdash; one God in three persons, Jesus fully God and fully man, his death for our
+        sins and his bodily resurrection, the authority of Scripture, and salvation by
+        God&rsquo;s grace through faith in Christ &mdash; the notes speak plainly.</p>
+      <p>The notes default towards Reformed theology, but where faithful Christians divide &mdash; how God&rsquo;s choosing relates
+        to human choice, whether a true believer can fall away, the days of creation,
+        baptism, the Lord&rsquo;s Supper, spiritual gifts today, men and women in church
+        leadership, the millennium &mdash; we set out the main views fairly, each at its
+        strongest, and leave the judgement with you. The aim is to inform, not to dictate.
+        Where the manuscripts differ, as at Mark 16:9 and John 7:53, we say so.</p>
+      <h3 id="about-traditions">The traditions, in plain English</h3>
+      <p><b>Evangelical</b> &mdash; as we use it, Christians who hold the Bible as their final
+        authority, put Christ&rsquo;s death on the cross at the centre, and stress personal
+        conversion and living it out. Both of the next two groups are evangelical.</p>
+      <p><b>Reformed (Calvinist)</b> &mdash; following John Calvin and the Reformers. It stresses
+        God&rsquo;s sovereignty in salvation: God chooses whom he will save, and his grace
+        brings them to faith and keeps them. Found in Presbyterian churches, many Baptist and
+        independent churches, and parts of the Church of England. Its classic statements are
+        the Westminster Confession and the Canons of Dort.</p>
+      <p><b>Arminian (Wesleyan)</b> &mdash; named after Jacobus Arminius and carried on by John
+        Wesley. It agrees that no one can turn to God without his grace, but holds that God
+        gives grace to every person that enables them to respond, and that this grace can be
+        resisted. God&rsquo;s choosing is usually understood as based on his foreknowledge
+        of who will believe, or as his choosing of a people &ldquo;in Christ&rdquo;. Found in
+        Methodist, Pentecostal and Holiness churches, and many Baptist and free churches.
+        When people speak of &ldquo;free-will&rdquo; evangelicals, this is usually what they
+        mean.</p>
+      <p><b>Lutheran</b> &mdash; following Martin Luther. Shares the Reformation teaching that we
+        are justified by faith alone, but holds that Christ&rsquo;s body and blood are truly
+        present in the Lord&rsquo;s Supper and that baptism is a means through which God
+        gives forgiveness and new life.</p>
+      <p><b>Catholic</b> &mdash; the Roman Catholic Church. Teaches that justification is
+        God&rsquo;s gift, first given in baptism, and is both forgiveness and a real inner
+        renewal in which the believer cooperates with grace and grows. Reads Scripture
+        together with Tradition, as interpreted by the Church&rsquo;s teaching office.</p>
+      <p><b>Orthodox</b> &mdash; the Eastern Orthodox churches (Greek, Russian and others).
+        Describes salvation as healing and union with God (&ldquo;theosis&rdquo;), lived out
+        through the life of the Church and its sacraments, and gives great weight to the early
+        church fathers and the seven ecumenical councils.</p>
+      <p>We bring in Lutheran, Catholic and Orthodox views only where they differ in a way
+        that matters for the passage, and we describe each in its own official words.</p>
+      <h3 id="about-labels">History &amp; archaeology labels</h3>
+      <p>Every history or archaeology point carries a label showing how far scholars accept
+        that specific point:</p>
+      <p><span class="conf c-est">Well established</span> broad agreement among scholars,
+        believing and secular.<br>
+        <span class="conf c-wide">Widely accepted</span> most specialists accept it, though a
+        minority disagree.<br>
+        <span class="conf c-deb">Debated</span> a live disagreement. We tell you which way most
+        scholars lean, and why.<br>
+        <span class="conf c-div">Evenly divided</span> no clear majority. We set out the best
+        case on each side.</p>
+      <p>We only speak confidently where the evidence is clearly there. Where most scholars
+        disagree with the traditional view, we say so plainly, give the strongest case on
+        both sides, and separate arguments that rest on evidence from arguments that rest on
+        prior beliefs, such as whether prophecy can predict the future.</p>
+      <h3 id="about-sources">Sources</h3>
+      <p>Wherever a free copy exists online, we link to the original texts: the church fathers,
+        the Reformers, the historic confessions of each tradition, ancient historians and
+        museum records. We also draw on standard academic commentaries from across the
+        spectrum. We do not cite Wikipedia or partisan websites as authorities.</p>
+      <h3 id="about-translation">The translation</h3>
+      <p>The Bible text is the Berean Standard Bible (BSB), a modern translation dedicated to
+        the public domain on 30 April 2023, which lets us publish it in full.</p>
+      <p style="margin-bottom:0">Nothing here replaces your own church or your own reading. If
+        you think a note is wrong, tell us and we will look at it again.</p>
     </details>
     <div class="lic">Berean Standard Bible &middot; dedicated to the public
       domain, 30 April 2023 &middot; study notes &copy; Community of Brothers</div>
@@ -1227,6 +1361,8 @@ const APOLOGETICS = [
 /* Filled either inline (single-file build) or fetched from assets/ (split build). */
 const INLINE_NOTES = null;
 const INLINE_SECTIONS = null;
+const INLINE_GLOSSARY = null;
+let GLOSSARY = {};
 let NOTES = {intros:{}, chapters:{}};
 let SECTIONS = {};
 
@@ -1498,14 +1634,15 @@ async function initBible(){
     let bin;
     if(b64){
       bin = Uint8Array.from(atob(b64), c=>c.charCodeAt(0));
-      NOTES = INLINE_NOTES; SECTIONS = INLINE_SECTIONS;
+      NOTES = INLINE_NOTES; SECTIONS = INLINE_SECTIONS; GLOSSARY = INLINE_GLOSSARY || {};
     } else {
-      const [gz, nt, sc] = await Promise.all([
+      const [gz, nt, sc, gl] = await Promise.all([
         fetch("assets/bsb.gz").then(r=>{ if(!r.ok) throw new Error("bsb.gz "+r.status); return r.arrayBuffer(); }),
         fetch("assets/notes.json").then(r=>{ if(!r.ok) throw new Error("notes.json "+r.status); return r.json(); }),
-        fetch("assets/sections.json").then(r=>{ if(!r.ok) throw new Error("sections.json "+r.status); return r.json(); })
+        fetch("assets/sections.json").then(r=>{ if(!r.ok) throw new Error("sections.json "+r.status); return r.json(); }),
+        fetch("assets/glossary.json").then(r=> r.ok ? r.json() : {}).catch(()=>({}))
       ]);
-      bin = new Uint8Array(gz); NOTES = nt; SECTIONS = sc;
+      bin = new Uint8Array(gz); NOTES = nt; SECTIONS = sc; GLOSSARY = gl || {};
     }
     mergeExtraNotes();
     let text;
@@ -1579,13 +1716,15 @@ function renderChapterHTML(bk, chIdx){
   let out = "";
   let carry = null;           // verse running on from the previous block
   let si = 0;                 // index of each section heading in the chapter
-  const SEC_CUR = (SECTIONS[curBook]||{})[String(chIdx+1)];
+  const pend = [];            // headings still waiting for their first verse
+  const headV = {};           // heading index -> first verse under it
+  const SEC_CUR = (SECTIONS[curBook]||{})[String(chIdx+1)] || [];
+  const noteV = {}; SEC_CUR.forEach(e=>{ noteV[String(e.v)] = e; });
   ch.b.forEach(blk=>{
     if(blk.k === "b"){ out += '<div class="b"></div>'; return; }
     if(blk.k === "s"){
-      const idx = si++;
-      const has = !!(SEC_CUR && SEC_CUR[idx]);
-      out += '<div class="s'+(has?' hasnote':'')+'" data-si="'+idx+'">'+
+      const idx = si++; pend.push(idx);
+      out += '<div class="s\u0002'+idx+'\u0002" data-si="'+idx+'">'+
              noteify(blk.c[0]||"", notes) +'</div>';
       return; }
     if(blk.k === "r"){ out += '<div class="r">'+ (blk.c[0]||"") +'</div>'; return; }
@@ -1595,6 +1734,12 @@ function renderChapterHTML(bk, chIdx){
       if(typeof it === "string"){ inner += noteify(it, notes) + " "; }
       else if(it.v){
         if(open) inner += '</span>';
+        const v = String(it.v);
+        const headed = pend.length > 0;
+        while(pend.length) headV[pend.shift()] = v;
+        // a note that starts where the BSB has no heading gets its own marker
+        if(!headed && noteV[v]) inner += '<span class="nmark" data-nv="'+v+'" role="button" tabindex="0">'+
+          noteV[v].h+'</span>';
         inner += '<span class="vs" data-v="'+it.v+'">'+
                  '<span class="vn">'+it.v+'</span>';
         open = true; carry = it.v;
@@ -1603,6 +1748,11 @@ function renderChapterHTML(bk, chIdx){
     if(open) inner += '</span>';
     const cls = blk.k === "p" ? "" : blk.k;
     out += '<p'+(cls?' class="'+cls+'"':'')+'>'+inner.trim()+'</p>';
+  });
+  // now that every heading knows its first verse, mark the ones with notes
+  out = out.replace(/\u0002(\d+)\u0002" data-si="\d+"/g, (m,i)=>{
+    const v = headV[i];
+    return (v && noteV[v] ? ' hasnote' : '')+'" data-si="'+i+'"'+(v?' data-nv="'+v+'"':'');
   });
   return out;
 }
@@ -1811,6 +1961,47 @@ function renderBible(){
 const ASK_TXT = "Worth talking through with a group leader, or an elder at your own church.";
 const ASK_MARK = '<div class="pask">Worth talking through with a group leader, or an elder at your own church.</div>';
 
+const CONF = {
+  est:  ["Well established", "Broad agreement among scholars, believing and secular"],
+  wide: ["Widely accepted",  "Most specialists accept this; a minority disagree"],
+  deb:  ["Debated",          "A live scholarly disagreement; the note says where the majority stands"],
+  div:  ["Evenly divided",   "No clear majority among scholars; the note sets out both sides"]
+};
+
+function srcList(src){
+  if(!src || !src.length) return "";
+  return '<ul class="srcl">'+src.map(x=> '<li>'+(x.u
+    ? '<a href="'+x.u+'" target="_blank" rel="noopener">'+x.l+'</a>'
+    : x.l)+'</li>').join("")+'</ul>';
+}
+
+function histItem(h, asDetails){
+  const c = CONF[h.c] || CONF.deb;
+  const pill = '<span class="conf c-'+(h.c||"deb")+'" title="'+c[1]+'">'+c[0]+'</span>';
+  const body = h.b.map(p=>'<p>'+p+'</p>').join("") +
+    (h.src && h.src.length ? '<div class="srch">Sources &amp; further reading</div>'+srcList(h.src) : '');
+  if(asDetails)
+    return '<details class="hist"><summary><span class="hk">History &amp; archaeology</span>'+
+      '<span class="ht">'+h.t+'</span>'+pill+'</summary><div class="hb">'+body+
+      '<button class="howlbl" data-about="labels">What do the labels mean?</button></div></details>';
+  return '<div class="hitem"><div class="ht">'+h.t+' '+pill+'</div><div class="hb">'+body+'</div></div>';
+}
+
+function termRow(keys, uid){
+  const ks = (keys||[]).filter(k=>GLOSSARY[k]);
+  if(!ks.length) return "";
+  return '<div class="kw" data-uid="'+uid+'"><span class="pl">Key words</span>'+
+    ks.map(k=>'<button class="kwb" data-k="'+k+'" aria-expanded="false">'+GLOSSARY[k].w+'</button>').join("")+
+    '<div class="kwp" hidden></div></div>';
+}
+
+function termPanel(k){
+  const g = GLOSSARY[k]; if(!g) return "";
+  return '<div class="kwh">'+g.w+'</div><p>'+g.d+'</p>'+
+    (g.v||[]).map(x=>'<p><b>'+x.who+':</b> '+x.t+'</p>').join("")+
+    (g.src && g.src.length ? '<div class="srch">Sources</div>'+srcList(g.src) : '');
+}
+
 function renderNotes(meta){
   const intro = NOTES.intros[curBook];
   const chn = (NOTES.chapters[curBook]||{})[curCh];
@@ -1823,23 +2014,32 @@ function renderNotes(meta){
     if(intro.t) html += '<div class="nh">'+intro.t+'</div>';
     html += '<div class="nb">'+ intro.b.map(p=>'<p style="margin:0 0 10px;color:inherit">'+p+'</p>').join("") +
       '</div></div></details>';
+    if(intro.hist && intro.hist.length){
+      html += '<details class="bintro bhist"><summary>History &amp; setting of '+meta.n+'</summary>'+
+        '<div class="hwrap">'+intro.hist.map(h=>histItem(h,false)).join("")+
+        '<button class="howlbl" data-about="labels">What do the labels mean?</button></div></details>';
+    }
   }
 
   if(sec && sec.length){
     html += '<div class="nt">Passages in chapter '+curCh+'</div>';
     sec.forEach((e,i)=>{
-      html += '<div class="pcard" id="pc-'+i+'">'+
+      html += '<div class="pcard" id="pc-'+e.v+'">'+
         '<div class="pr">'+curCh+':'+e.v+'</div><div class="ph">'+e.h+'</div>'+
         '<div class="pf"><span class="pl">Context</span>'+e.ctx+'</div>'+
         '<div class="pf"><span class="pl">Meaning</span>'+e.mean+'</div>'+
         (e.big ? '<div class="pf big"><span class="pl">Big idea</span>'+e.big+'</div>' : '')+
         (e.diff? '<div class="pf diff"><span class="pl">Where readings differ</span>'+e.diff+'</div>' : '')+
+        termRow(e.terms, curCh+'-'+e.v)+
+        (e.hist ? e.hist.map(h=>histItem(h,true)).join("") : '')+
+        (e.src && e.src.length ? '<details class="psrc"><summary>Sources for this note</summary>'+srcList(e.src)+'</details>' : '')+
         (e.ask ? ASK_MARK : '')+'</div>';
     });
   }
 
-  if(chn && chn.length){
-    html += '<div class="nt" style="margin-top:26px">'+(sec?'More on chapter ':'Chapter ')+curCh+'</div>';
+  // brief chapter notes are only shown where a chapter has no passage notes yet
+  if(chn && chn.length && !(sec && sec.length)){
+    html += '<div class="nt" style="margin-top:26px">Chapter '+curCh+'</div>';
     chn.forEach(n=>{
       let t = n.t, ask = false;
       if(t.endsWith(ASK_TXT)){ t = t.slice(0, -ASK_TXT.length).trim(); ask = true; }
@@ -1857,12 +2057,12 @@ function renderNotes(meta){
   if(mob) mob.innerHTML = '<div class="wrap" style="padding:0"><div class="nt">Study notes</div>'+
     html.replace(/id="pc-/g,'id="mpc-')+'</div>';
 
-  // clicking a passage heading in the text jumps to its note
-  document.querySelectorAll('.scr .s.hasnote').forEach(h=>{
-    h.addEventListener('click', ()=>{
-      const i = h.getAttribute('data-si');
+  // clicking a passage heading (or an added note marker) in the text jumps to its note
+  document.querySelectorAll('.scr .s.hasnote, .scr .nmark').forEach(h=>{
+    const go = ()=>{
+      const v = h.getAttribute('data-nv');
       const wide = window.matchMedia('(min-width:1101px)').matches;
-      const card = document.getElementById((wide?'pc-':'mpc-')+i);
+      const card = document.getElementById((wide?'pc-':'mpc-')+v);
       if(!card) return;
       if(wide){
         const col = document.getElementById('notecol');
@@ -1871,9 +2071,31 @@ function renderNotes(meta){
         card.scrollIntoView({behavior:'smooth', block:'start'});
       }
       card.classList.add('flash'); setTimeout(()=>card.classList.remove('flash'), 1400);
-    });
+    };
+    h.addEventListener('click', go);
+    h.addEventListener('keydown', ev=>{ if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); go(); } });
   });
 }
+
+/* key-word chips and "what do the labels mean" links, wired once for both note columns */
+document.addEventListener('click', ev=>{
+  const b = ev.target.closest('.kwb');
+  if(b){
+    const row = b.closest('.kw'), panel = row.querySelector('.kwp');
+    const was = b.getAttribute('aria-expanded') === 'true';
+    row.querySelectorAll('.kwb').forEach(x=>x.setAttribute('aria-expanded','false'));
+    if(was){ panel.hidden = true; panel.innerHTML = ""; }
+    else { b.setAttribute('aria-expanded','true'); panel.innerHTML = termPanel(b.getAttribute('data-k')); panel.hidden = false; }
+    return;
+  }
+  const l = ev.target.closest('.howlbl');
+  if(l){
+    const st = document.getElementById('stance'); if(!st) return;
+    st.open = true;
+    const t = document.getElementById('about-'+l.getAttribute('data-about')) || st;
+    t.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+});
 
 /* ---------- draggable divider between scripture and notes ---------- */
 (function(){
