@@ -449,6 +449,17 @@ body.menuopen{overflow:hidden}
 .pf.qs ol{margin:4px 0 0;padding-left:1.25em}
 .pf.qs li{margin:0 0 5px}
 .pf.qs .pl{color:#A9C6E8}
+.pvv{margin:12px 0 10px;border:1px solid rgba(224,192,99,.30);background:rgba(224,192,99,.045)}
+.pvv summary{list-style:none;cursor:pointer;padding:9px 36px 10px 12px;position:relative}
+.pvv summary::-webkit-details-marker{display:none}
+.pvv summary::after{content:"+";position:absolute;right:12px;top:9px;color:var(--gold-lt);
+  font-family:var(--sans);font-size:1.05rem}
+.pvv[open] summary::after{content:"\2013"}
+.pvv .dsub{font-family:var(--body);color:#C9D2DF;font-size:.98rem}
+.vvi{margin:4px 0 16px;padding-left:10px;border-left:2px solid rgba(224,192,99,.35)}
+.vvr{font-family:var(--sans);font-size:.74rem;letter-spacing:.06em;color:var(--gold-lt);margin-bottom:4px}
+.vvr a.xref{color:var(--gold-lt)}
+.vvh{font-family:var(--body);font-size:1.02rem;letter-spacing:0;color:#EEF1F6;font-style:italic;margin-left:4px}
 .pdeep{margin:12px 0 10px;border:1px solid rgba(140,180,225,.28);background:rgba(140,180,225,.05)}
 .pdeep summary{list-style:none;cursor:pointer;padding:9px 36px 10px 12px;position:relative}
 .pdeep summary::-webkit-details-marker{display:none}
@@ -2228,6 +2239,14 @@ function termPanelRaw(g){
 }
 
 const DK = {q:"Quoted", e:"Echo", p:"Parallel", t:"Theology"};
+function vvBox(vv){
+  if(!vv || !vv.length) return "";
+  return '<details class="pvv"><summary><span class="hk">Verse by verse</span>'+
+    '<span class="dsub">A closer look at each verse ('+vv.length+')</span></summary><div class="hb">'+
+    vv.map(x=>'<div class="vvi"><div class="vvr">'+x.r+(x.h?' <span class="vvh">'+x.h+'</span>':'')+'</div>'+
+      (Array.isArray(x.b)?x.b:[x.b]).map(p=>'<p>'+p+'</p>').join("")+'</div>').join("")+
+    '</div></details>';
+}
 function deepBox(d){
   if(!d || (!(d.b && d.b.length) && !(d.l && d.l.length))) return "";
   return '<details class="pdeep"><summary><span class="hk">Go deeper</span>'+
@@ -2283,6 +2302,7 @@ function renderNotes(meta){
         '<div class="pf"><span class="pl">Context</span>'+e.ctx+'</div>'+
         '<div class="pf"><span class="pl">Meaning</span>'+e.mean+'</div>'+
         (e.big ? '<div class="pf big"><span class="pl">Big idea</span>'+e.big+'</div>' : '')+
+        vvBox(e.vv)+
         (e.mis ? '<div class="pf mis"><span class="pl">Often misread</span>'+(e.mis.t?'<b>'+e.mis.t+'</b> ':'')+e.mis.b+'</div>' : '')+
         (e.diff? '<div class="pf diff"><span class="pl">Where readings differ</span>'+e.diff+'</div>' : '')+
         termRow(e.terms, curCh+'-'+e.v)+
