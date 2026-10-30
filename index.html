@@ -435,6 +435,58 @@ body.menuopen{overflow:hidden}
 .pask{font-family:var(--sans);font-size:.78rem;color:var(--gold-lt);margin-top:4px;
   display:flex;gap:7px;align-items:baseline}
 .pask::before{content:"\25B8"}
+
+/* v2 cards: go deeper, often misread, discussion, passage jump bar, cross-references */
+.pcard .pref{background:none;border:0;padding:0;cursor:pointer;font:inherit;color:var(--gold);
+  letter-spacing:.1em;font-family:var(--sans);font-size:.72rem}
+.pcard .pref:hover{color:#fff}
+.pcard .pref::after{content:"  \2191 text";color:#6F7C93;letter-spacing:.05em}
+.pf.mis{background:rgba(232,180,95,.07);border-left:2px solid #E3B467;padding:9px 11px}
+.pf.mis .pl{color:#EBC283}
+.pf.mis b{color:#EEF1F6;font-weight:600}
+.pf.qs ol{margin:4px 0 0;padding-left:1.25em}
+.pf.qs li{margin:0 0 5px}
+.pf.qs .pl{color:#A9C6E8}
+.pdeep{margin:12px 0 10px;border:1px solid rgba(140,180,225,.28);background:rgba(140,180,225,.05)}
+.pdeep summary{list-style:none;cursor:pointer;padding:9px 36px 10px 12px;position:relative}
+.pdeep summary::-webkit-details-marker{display:none}
+.pdeep summary::after{content:"+";position:absolute;right:12px;top:9px;color:#AFCBEA;
+  font-family:var(--sans);font-size:1.05rem}
+.pdeep[open] summary::after{content:"\2013"}
+.pdeep .hk{color:#AFCBEA}
+.pdeep .dsub{font-family:var(--body);color:#C9D2DF;font-size:.98rem}
+.dl{list-style:none;margin:6px 0 4px;padding:0}
+.dl li{color:#B9C3D2;font-size:clamp(1rem,.92rem + .18vw,1.08rem);line-height:1.6;margin:0 0 10px}
+.dk{display:inline-block;font-family:var(--sans);font-size:.58rem;font-weight:500;letter-spacing:.1em;
+  text-transform:uppercase;padding:2px 6px;border-radius:2px;margin-right:7px;vertical-align:2px}
+.dk-q{background:rgba(120,190,140,.17);color:#A4D8B3}
+.dk-e{background:rgba(140,180,225,.17);color:#AFCBEA}
+.dk-p{background:rgba(190,160,230,.17);color:#CDB8EE}
+.dk-t{background:rgba(232,180,95,.17);color:#EBC283}
+.dl .dr{color:#EEF1F6;font-weight:500;margin-right:4px}
+a.xref{color:#DCC57E;text-decoration:underline;text-decoration-style:dotted;
+  text-decoration-color:rgba(224,192,99,.55);text-underline-offset:2px;cursor:pointer}
+a.xref:hover{color:#fff;text-decoration-style:solid}
+.pjump{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 20px}
+.pjump button{background:rgba(255,255,255,.05);border:1px solid rgba(224,192,99,.25);color:#C9D2DF;
+  font-family:var(--sans);font-size:.72rem;padding:4px 9px;cursor:pointer;border-radius:2px}
+.pjump button:hover{border-color:var(--gold-lt);color:#fff}
+.bmap{margin:4px 0 12px}
+.bmap ol{margin:4px 0 0;padding-left:0;list-style:none}
+.bmap li{margin:0 0 6px;line-height:1.5;display:grid;grid-template-columns:5.8em 1fr;gap:10px}
+.bmap .mr{font-family:var(--sans);font-size:.78rem;color:var(--gold-lt)}
+.bmap .mr a.xref{color:var(--gold-lt)}
+.bmap .mt{color:inherit}
+.bsub{font-family:var(--sans);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+  color:#8B97AC;margin:14px 0 6px}
+.backchip{position:fixed;left:14px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60;
+  display:none;background:var(--navy-3);color:#F0F3F8;border:1px solid var(--gold-lt);
+  font-family:var(--sans);font-size:.78rem;padding:8px 13px;border-radius:3px;cursor:pointer;
+  box-shadow:0 4px 18px rgba(0,0,0,.35)}
+.backchip.show{display:block}
+.backchip:hover{background:var(--navy-4)}
+.resume{display:inline-block;margin:0 0 12px;font-family:var(--sans);font-size:.78rem;color:var(--gold-lt);
+  background:none;border:1px solid rgba(224,192,99,.35);padding:5px 11px;cursor:pointer;border-radius:2px}
 /* added study-note markers, history drop-downs, key words, sources */
 .scr .nmark{display:block;text-indent:0;font-family:var(--sans);font-size:.68rem;font-weight:500;
   letter-spacing:.13em;text-transform:uppercase;color:#A9B4C6;margin:16px 0 8px;padding:2px 0 2px 10px;
@@ -911,16 +963,26 @@ body.menuopen{overflow:hidden}
     <details class="stance" id="stance">
       <summary>About these notes</summary>
       <h3 id="about-how">How to use them</h3>
-      <p>Every passage has a card with up to four parts. <b>Context</b> sets the scene.
-        <b>Meaning</b> explains what the passage says and how its argument runs.
-        <b>Big idea</b> gives the point in a sentence. <b>Where readings differ</b>
-        appears only where Christians or scholars genuinely disagree. Some cards also have
-        <b>Key words</b> (tap one for a plain definition, and how different traditions
-        understand it), a <b>History &amp; archaeology</b> drop-down, and the
-        <b>sources</b> behind the note, linked so you can check them yourself. In the Bible
-        text, tap a heading marked &ldquo;notes&rdquo; to jump to its card. Lines marked
-        &ldquo;Study note&rdquo; are places where we have split a passage ourselves; the
-        other headings come from the translation.</p>
+      <p>Each book starts with <b>About</b> the book, a <b>map</b> of how it is laid out, a short
+        guide to <b>how to read</b> that kind of writing, and a <b>History &amp; setting</b>
+        drop-down. Every passage then has a card. <b>Context</b> sets the scene.
+        <b>Meaning</b> explains the passage in plain words, so that someone reading it for the
+        first time can follow what it says and why. <b>Big idea</b> gives the point in a
+        sentence. <b>Go deeper</b> (tap to open) is for those who want more: how the passage
+        connects with the rest of Scripture and with Christian teaching. Each link is labelled
+        <i>Quoted</i> (the Bible quotes the other passage), <i>Echo</i> (a clear allusion),
+        <i>Parallel</i> (the same teaching elsewhere) or <i>Theology</i> (how it feeds a
+        wider doctrine). <b>Often misread</b> appears only where a verse is commonly taken
+        out of context and we can show why. <b>Where readings differ</b> appears only where
+        Christians or scholars genuinely disagree. <b>For discussion</b> gives questions for a
+        group or for your own study. Some cards also have <b>Key words</b> (tap one for a plain
+        definition, and how different traditions understand it), a <b>History &amp;
+        archaeology</b> drop-down, and the <b>sources</b> behind the note, linked so you can
+        check them yourself.</p>
+      <p>Any Bible reference in the notes can be tapped to go straight there, and the back
+        button brings you back. In the Bible text, tap a heading marked &ldquo;notes&rdquo; to
+        jump to its card. Lines marked &ldquo;Study note&rdquo; are places where we have split
+        a passage ourselves; the other headings come from the translation.</p>
       <h3 id="about-stand">Where we stand</h3>
       <p>The notes are written by the leaders of Community of Brothers, for our own men and
         for anyone else who finds them useful. On what Christians have always held together
@@ -936,32 +998,46 @@ body.menuopen{overflow:hidden}
       <h3 id="about-traditions">The traditions, in plain English</h3>
       <p><b>Evangelical</b> &mdash; as we use it, Christians who hold the Bible as their final
         authority, put Christ&rsquo;s death on the cross at the centre, and stress personal
-        conversion and living it out. Both of the next two groups are evangelical.</p>
-      <p><b>Reformed (Calvinist)</b> &mdash; following John Calvin and the Reformers. It stresses
-        God&rsquo;s sovereignty in salvation: God chooses whom he will save, and his grace
-        brings them to faith and keeps them. Found in Presbyterian churches, many Baptist and
-        independent churches, and parts of the Church of England. Its classic statements are
-        the Westminster Confession and the Canons of Dort.</p>
+        conversion and living it out. Most Reformed and Arminian Christians are evangelicals
+        in this sense.</p>
+      <p><b>Reformed (Calvinist)</b> &mdash; following John Calvin and the Reformers. It holds
+        that sin has left every person unable to turn to God by their own strength, so
+        salvation rests on God&rsquo;s choice, not ours. Those God has chosen, he calls by his
+        Word and Spirit in a way that does not finally fail: he renews their hearts, and they
+        then come to Christ willingly and freely. As the Westminster Confession puts it,
+        &ldquo;they come most freely, being made willing by his grace&rdquo; (10.1). The person
+        is not forced; they truly choose. How God&rsquo;s sovereign grace and real human choice
+        fit together is accepted as partly a mystery. God also keeps true believers to the
+        end. Found in Presbyterian churches, many Baptist and independent churches, and parts
+        of the Church of England; its classic statements are the Westminster Confession and
+        the Canons of Dort.</p>
       <p><b>Arminian (Wesleyan)</b> &mdash; named after Jacobus Arminius and carried on by John
         Wesley. It agrees that no one can turn to God without his grace, but holds that God
-        gives grace to every person that enables them to respond, and that this grace can be
-        resisted. God&rsquo;s choosing is usually understood as based on his foreknowledge
-        of who will believe, or as his choosing of a people &ldquo;in Christ&rdquo;. Found in
-        Methodist, Pentecostal and Holiness churches, and many Baptist and free churches.
-        When people speak of &ldquo;free-will&rdquo; evangelicals, this is usually what they
-        mean.</p>
+        gives grace to every person that makes them able to respond, and that this grace
+        &ldquo;is not irresistible&rdquo; (the Arminian Articles of 1610, article 4): a person
+        can accept it or refuse it. God&rsquo;s choosing is usually understood as based on his
+        foreknowledge of who will believe, or as his choosing of a people &ldquo;in
+        Christ&rdquo;. Wesley taught that a true believer can turn away and be lost. Found in
+        Methodist, Pentecostal and Holiness churches, and many Baptist and free churches;
+        &ldquo;free-will&rdquo; evangelicals usually means this view.</p>
       <p><b>Lutheran</b> &mdash; following Martin Luther. Shares the Reformation teaching that we
-        are justified by faith alone, but holds that Christ&rsquo;s body and blood are truly
-        present in the Lord&rsquo;s Supper and that baptism is a means through which God
-        gives forgiveness and new life.</p>
+        are justified by faith alone. Holds that God&rsquo;s choosing is only ever to
+        salvation, and that those who are lost are lost through their own fault, not because
+        of God&rsquo;s decree (Formula of Concord, article 11). Teaches that Christ&rsquo;s
+        &ldquo;true body and blood&rdquo; are present &ldquo;under the bread and wine&rdquo; in
+        the Lord&rsquo;s Supper, and that baptism is a means through which God gives
+        forgiveness and new life.</p>
       <p><b>Catholic</b> &mdash; the Roman Catholic Church. Teaches that justification is
         God&rsquo;s gift, first given in baptism, and is both forgiveness and a real inner
-        renewal in which the believer cooperates with grace and grows. Reads Scripture
-        together with Tradition, as interpreted by the Church&rsquo;s teaching office.</p>
+        renewal in which the believer freely cooperates with grace and grows. Grace can be lost
+        through serious (&ldquo;mortal&rdquo;) sin and restored through confession. Reads
+        Scripture together with Tradition, as interpreted by the Church&rsquo;s teaching
+        office.</p>
       <p><b>Orthodox</b> &mdash; the Eastern Orthodox churches (Greek, Russian and others).
-        Describes salvation as healing and union with God (&ldquo;theosis&rdquo;), lived out
-        through the life of the Church and its sacraments, and gives great weight to the early
-        church fathers and the seven ecumenical councils.</p>
+        Describes salvation as healing and union with God (&ldquo;theosis&rdquo;), in which
+        human freedom works together with God&rsquo;s grace, lived out through the life of the
+        Church and its sacraments. Gives great weight to the early church fathers and the
+        seven ecumenical councils.</p>
       <p>We bring in Lutheran, Catholic and Orthodox views only where they differ in a way
         that matters for the passage, and we describe each in its own official words.</p>
       <h3 id="about-labels">History &amp; archaeology labels</h3>
@@ -1013,6 +1089,7 @@ body.menuopen{overflow:hidden}
     </aside>
   </div>
   <div class="mobnotes" id="mobnotes"></div>
+  <button class="backchip" id="backchip" aria-label="Go back"></button>
   <button class="totop" id="totop" aria-label="Back to the top of this chapter">
     &uarr; Top of chapter</button>
 </div>
@@ -1585,13 +1662,19 @@ function go(name, anchor){
       if(t) t.scrollIntoView({behavior:"smooth"}); }, 40);
   } else { window.scrollTo(0,0); }
   const want = "#/"+name+(anchor?("#"+anchor):"");
-  if(location.hash !== want) history.pushState({v:name,a:anchor}, "", want);
+  const keep = name === "bible" && /^#\/bible\//.test(location.hash);
+  if(!keep && !popping && location.hash !== want) history.pushState({v:name,a:anchor}, "", want);
   if(name === "questions" || name === "topics") initGuides(name);
 }
 
+let popping = false;          // true while responding to the back/forward buttons
+let hashRef = null;           // {b,c,v} when the address names a Bible passage
 function readHash(){
   const h = (location.hash||"").replace(/^#\//,"");
-  const [v,a] = h.split("#");
+  const [path,a] = h.split("#");
+  const parts = path.split("/");
+  const v = parts[0];
+  hashRef = (v === "bible" && parts[1]) ? {b:parts[1].toUpperCase(), c:parseInt(parts[2]||"1",10)||1, v:parts[3]||null} : null;
   return [VIEWS.includes(v)?v:"home", a];
 }
 
@@ -1601,7 +1684,20 @@ document.addEventListener("click", e=>{
   e.preventDefault();
   go(t.getAttribute("data-go"), t.getAttribute("data-anchor"));
 });
-window.addEventListener("popstate", ()=>{ const [v,a]=readHash(); go(v,a); });
+window.addEventListener("popstate", ev=>{
+  const [v,a] = readHash();
+  popping = true;
+  if(v === "bible" && hashRef){
+    curBook = hashRef.b; curCh = hashRef.c;
+    jumpVerse = null;
+    const st = ev.state || {};
+    restoreY = (typeof st.y === "number") ? st : null;
+    if(!restoreY && hashRef.v) jumpVerse = hashRef.v;
+    go("bible");
+    if(BIBLE && current === "bible") renderBible();
+  } else go(v,a);
+  popping = false;
+});
 
 /* ---------- cards ---------- */
 function card(item){
@@ -1657,7 +1753,12 @@ async function initBible(){
     if(bar) bar.style.width = "100%";
     clearInterval(tick);
     buildBookList();
-    const saved = null;
+    if(hashRef && BIBLE.books[hashRef.b]){
+      curBook = hashRef.b; curCh = hashRef.c; jumpVerse = hashRef.v;
+    } else {
+      try{ const sv = JSON.parse(localStorage.getItem("cob-last") || "null");
+           if(sv && BIBLE.books[sv.b]){ curBook = sv.b; curCh = sv.c || 1; } }catch(e){}
+    }
     renderBible();
     document.getElementById("bload").style.display = "none";
     document.getElementById("bcontent").style.display = "block";
@@ -1955,7 +2056,125 @@ function renderBible(){
     b.classList.toggle("on", b.getAttribute("data-bk")===curBook);
   });
   renderNotes(meta);
-  if(jumpVerse) setTimeout(flashVerse, 60);
+  syncHash();
+  try{ localStorage.setItem("cob-last", JSON.stringify({b:curBook, c:curCh})); }catch(e){}
+  if(restoreY){
+    const st = restoreY; restoreY = null;
+    setTimeout(()=>{ window.scrollTo(0, st.y || 0);
+      const col = document.getElementById('notecol'); if(col && st.ny) col.scrollTop = st.ny; }, 60);
+  } else if(jumpVerse){
+    const v = jumpVerse;
+    setTimeout(()=>{ flashVerse(); if(window.matchMedia('(min-width:1101px)').matches) showCard(v, false); }, 60);
+  }
+  if(pendingCard){ const v = pendingCard; pendingCard = null; setTimeout(()=>showCard(v, true), 120); }
+  updateBackChip();
+}
+
+/* ---------- navigation helpers: address bar, back chip, cross-references ---------- */
+let restoreY = null, pendingFrom = null, pendingCard = null;
+function bookName(a){ const m = BIBLE && BIBLE.index.find(x=>x.a===a); return m ? m.n : a; }
+function syncHash(){
+  const want = "#/bible/"+curBook+"/"+curCh;
+  if(popping || location.hash === want || current !== "bible") { return; }
+  const st = {v:"bible", b:curBook, c:curCh, from: pendingFrom};
+  pendingFrom = null;
+  if(location.hash === "#/bible" || location.hash === "" || location.hash === "#/") history.replaceState(st, "", want);
+  else history.pushState(st, "", want);
+}
+function saveScroll(){
+  const col = document.getElementById('notecol');
+  const st = Object.assign({}, history.state || {}, {y: window.scrollY, ny: col ? col.scrollTop : 0});
+  history.replaceState(st, "", location.hash);
+}
+function updateBackChip(){
+  const bc = document.getElementById("backchip"); if(!bc) return;
+  const st = history.state || {};
+  if(current === "bible" && st.from){ bc.textContent = "\u2190 Back to "+st.from; bc.classList.add("show"); }
+  else bc.classList.remove("show");
+}
+document.addEventListener("click", e=>{
+  if(e.target.closest("#backchip")){ e.preventDefault(); history.back(); }
+});
+/* jump to a passage from a link in the notes */
+function openRef(b, c, v, card){
+  if(!BIBLE || !BIBLE.books[b]) return;
+  saveScroll();
+  pendingFrom = bookName(curBook)+" "+curCh;
+  const same = (b === curBook && +c === +curCh);
+  curBook = b; curCh = Math.min(Math.max(+c,1), BIBLE.books[b].c.length);
+  if(same){
+    // same chapter: no reload, just move to the verse and its card
+    pendingFrom = null;
+    jumpVerse = v; if(v){ flashVerse(); if(card || window.matchMedia('(min-width:1101px)').matches) showCard(v, !!card); }
+    return;
+  }
+  jumpVerse = v || null; pendingCard = card ? (v || "1") : null;
+  if(current !== "bible") go("bible");
+  renderBible();
+  if(!v) window.scrollTo(0,0);
+}
+document.addEventListener("click", e=>{
+  const x = e.target.closest("a.xref"); if(!x) return;
+  e.preventDefault();
+  const card = /note|card/i.test((x.previousSibling && x.previousSibling.textContent || "").slice(-14));
+  openRef(x.getAttribute("data-b"), x.getAttribute("data-c"), x.getAttribute("data-v"), card);
+});
+/* scroll the notes to the card that covers verse v */
+function showCard(v, mobileToo){
+  const sec = (SECTIONS[curBook]||{})[String(curCh)] || [];
+  let best = null; sec.forEach(e=>{ if(+e.v <= +v) best = e.v; });
+  if(best === null) return;
+  const wide = window.matchMedia('(min-width:1101px)').matches;
+  if(!wide && !mobileToo) return;
+  const card = document.getElementById((wide?'pc-':'mpc-')+best); if(!card) return;
+  if(wide){ const col = document.getElementById('notecol'); col.scrollTo({top: card.offsetTop - 14, behavior:'smooth'}); }
+  else card.scrollIntoView({behavior:'smooth', block:'start'});
+  card.classList.add('flash'); setTimeout(()=>card.classList.remove('flash'), 1400);
+}
+/* turn Bible references in note text into links */
+let XRX = null, XMAP = {};
+function xrefInit(){
+  if(XRX || !BIBLE) return;
+  const names = [];
+  BIBLE.index.forEach(b=>{ XMAP[b.n.toLowerCase()] = b.a; names.push(b.n); });
+  const alias = {"Psalm":"PSA", "Song of Solomon":"SNG"};
+  Object.keys(alias).forEach(k=>{ XMAP[k.toLowerCase()] = alias[k]; names.push(k); });
+  names.sort((x,y)=>y.length-x.length);
+  const nm = names.map(n=>n.replace(/ /g,"\\s")).join("|");
+  const RG = "(?:\\u2013|-|&ndash;)(\\d{1,3})";
+  XRX = new RegExp("\\b("+nm+")\\s(\\d{1,3})(?::(\\d{1,3})(?:"+RG+")?|(?:\\u2013|-|&ndash;)\\d{1,3}(?![\\d:]))?(?![\\d:])"+
+    "|\\b(verses?)\\s(\\d{1,3})(?:"+RG+")?(?![\\d:])"+
+    "|(^|[^\\w:.\\/&;])(\\d{1,3}):(\\d{1,3})(?:"+RG+")?(?![\\d:])", "g");
+}
+function xa(a, c, v, label){
+  const bk = BIBLE.books[a];
+  if(!bk || +c < 1 || +c > bk.c.length) return label;
+  return '<a class="xref" href="#/bible/'+a+'/'+c+(v?'/'+v:'')+'" data-b="'+a+'" data-c="'+c+'"'+
+    (v?' data-v="'+v+'"':'')+'>'+label+'</a>';
+}
+function linkRefs(html, local){
+  xrefInit(); if(!XRX || !html) return html;
+  const parts = html.split(/(<[^>]+>)/); let inA = 0;
+  for(let i=0;i<parts.length;i++){
+    const p = parts[i];
+    if(p.charAt(0) === "<"){
+      if(/^<a[\s>]/i.test(p)) inA++; else if(/^<\/a>/i.test(p)) inA = Math.max(0, inA-1);
+      continue;
+    }
+    if(inA || !p) continue;
+    parts[i] = p.replace(XRX, (m, bk, c, v, v2, vw, vn, vn2, pre, bc, bv)=>{
+      if(bk){ const a = XMAP[bk.replace(/\s+/g," ").toLowerCase()]; return a ? xa(a, c, v, m) : m; }
+      if(vw){ return local ? xa(curBook, curCh, vn, m) : m; }
+      if(bc){ return local ? pre + xa(curBook, bc, bv, m.slice(pre.length)) : m; }
+      return m;
+    });
+  }
+  return parts.join("");
+}
+function lastVerse(bk, ch){
+  let mx = 0; const c = BIBLE.books[bk] && BIBLE.books[bk].c[ch-1]; if(!c) return 0;
+  c.b.forEach(blk=>(blk.c||[]).forEach(it=>{ if(it && it.v && +it.v > mx) mx = +it.v; }));
+  return mx;
 }
 
 const ASK_TXT = "Worth talking through with a group leader, or an elder at your own church.";
@@ -1997,11 +2216,30 @@ function termRow(keys, uid){
 
 function termPanel(k){
   const g = GLOSSARY[k]; if(!g) return "";
+  return linkRefs(termPanelRaw(g), false);
+}
+function termPanelRaw(g){
   return '<div class="kwh">'+g.w+'</div><p>'+g.d+'</p>'+
     (g.v||[]).map(x=>'<p><b>'+x.who+':</b> '+x.t+'</p>').join("")+
     (g.src && g.src.length ? '<div class="srch">Sources</div>'+srcList(g.src) : '');
 }
 
+const DK = {q:"Quoted", e:"Echo", p:"Parallel", t:"Theology"};
+function deepBox(d){
+  if(!d || (!(d.b && d.b.length) && !(d.l && d.l.length))) return "";
+  return '<details class="pdeep"><summary><span class="hk">Go deeper</span>'+
+    '<span class="dsub">Links across Scripture and Christian teaching</span></summary><div class="hb">'+
+    (d.b||[]).map(p=>'<p>'+p+'</p>').join("")+
+    (d.l && d.l.length ? '<ul class="dl">'+d.l.map(x=>'<li><span class="dk dk-'+x.k+'">'+(DK[x.k]||x.k)+'</span>'+
+      '<span class="dr">'+x.r+'</span> '+x.t+'</li>').join("")+'</ul>' : '')+
+    '</div></details>';
+}
+function linkMapRef(r){
+  // "1:1\u201311" or "1:12\u20132:30" in the current book
+  const m = String(r).match(/^(\d+)(?::(\d+))?/);
+  if(!m) return r;
+  return xa(curBook, m[1], m[2]||null, r);
+}
 function renderNotes(meta){
   const intro = NOTES.intros[curBook];
   const chn = (NOTES.chapters[curBook]||{})[curCh];
@@ -2012,8 +2250,16 @@ function renderNotes(meta){
     html += '<details class="bintro"'+(sec?'':' open')+'><summary>About '+meta.n+'</summary>'+
       '<div class="note intro" style="margin-top:10px">';
     if(intro.t) html += '<div class="nh">'+intro.t+'</div>';
-    html += '<div class="nb">'+ intro.b.map(p=>'<p style="margin:0 0 10px;color:inherit">'+p+'</p>').join("") +
-      '</div></div></details>';
+    html += '<div class="nb">'+ intro.b.map(p=>'<p style="margin:0 0 10px;color:inherit">'+p+'</p>').join("");
+    if(intro.map && intro.map.length){
+      html += '<div class="bsub">How the book is laid out</div><div class="bmap"><ol>'+
+        intro.map.map(m=>'<li><span class="mr">'+linkMapRef(m.r)+'</span> <span class="mt">'+m.t+'</span></li>').join("")+'</ol></div>';
+    }
+    if(intro.read && intro.read.length){
+      html += '<div class="bsub">How to read '+meta.n+'</div>'+
+        intro.read.map(p=>'<p style="margin:0 0 10px;color:inherit">'+p+'</p>').join("");
+    }
+    html += '</div></div></details>';
     if(intro.hist && intro.hist.length){
       html += '<details class="bintro bhist"><summary>History &amp; setting of '+meta.n+'</summary>'+
         '<div class="hwrap">'+intro.hist.map(h=>histItem(h,false)).join("")+
@@ -2022,19 +2268,28 @@ function renderNotes(meta){
   }
 
   if(sec && sec.length){
+    const lv = lastVerse(curBook, curCh);
+    const rng = sec.map((e,i)=>{ const end = i+1 < sec.length ? (+sec[i+1].v - 1) : lv;
+      return end > +e.v ? e.v+'\u2013'+end : String(e.v); });
     html += '<div class="nt">Passages in chapter '+curCh+'</div>';
+    if(sec.length > 1) html += '<div class="pjump">'+sec.map((e,i)=>'<button data-jv="'+e.v+'" title="'+e.h.replace(/"/g,'&quot;')+'">'+rng[i]+'</button>').join("")+'</div>';
+    let cards = "";
     sec.forEach((e,i)=>{
-      html += '<div class="pcard" id="pc-'+e.v+'">'+
-        '<div class="pr">'+curCh+':'+e.v+'</div><div class="ph">'+e.h+'</div>'+
+      cards += '<div class="pcard" id="pc-'+e.v+'">'+
+        '<div class="pr"><button class="pref" data-tv="'+e.v+'">'+curCh+':'+rng[i]+'</button></div><div class="ph">'+e.h+'</div>'+
         '<div class="pf"><span class="pl">Context</span>'+e.ctx+'</div>'+
         '<div class="pf"><span class="pl">Meaning</span>'+e.mean+'</div>'+
         (e.big ? '<div class="pf big"><span class="pl">Big idea</span>'+e.big+'</div>' : '')+
+        (e.mis ? '<div class="pf mis"><span class="pl">Often misread</span>'+(e.mis.t?'<b>'+e.mis.t+'</b> ':'')+e.mis.b+'</div>' : '')+
         (e.diff? '<div class="pf diff"><span class="pl">Where readings differ</span>'+e.diff+'</div>' : '')+
         termRow(e.terms, curCh+'-'+e.v)+
+        deepBox(e.deep)+
         (e.hist ? e.hist.map(h=>histItem(h,true)).join("") : '')+
+        (e.qs && e.qs.length ? '<div class="pf qs"><span class="pl">For discussion</span><ol>'+e.qs.map(q=>'<li>'+q+'</li>').join("")+'</ol></div>' : '')+
         (e.src && e.src.length ? '<details class="psrc"><summary>Sources for this note</summary>'+srcList(e.src)+'</details>' : '')+
         (e.ask ? ASK_MARK : '')+'</div>';
     });
+    html += linkRefs(cards, true);
   }
 
   // brief chapter notes are only shown where a chapter has no passage notes yet
@@ -2052,11 +2307,15 @@ function renderNotes(meta){
       'been written yet.</div>';
   }
 
+  if(intro) html = html.replace(/<details class="bintro[\s\S]*?<\/details>/g, m=>linkRefs(m, true));
   document.getElementById("notes").innerHTML = html;
   const mob = document.getElementById("mobnotes");
   if(mob) mob.innerHTML = '<div class="wrap" style="padding:0"><div class="nt">Study notes</div>'+
     html.replace(/id="pc-/g,'id="mpc-')+'</div>';
 
+  // passage jump bar and card references
+  document.querySelectorAll('.pjump button').forEach(b=>b.addEventListener('click', ()=>showCard(b.getAttribute('data-jv'), true)));
+  document.querySelectorAll('.pref').forEach(b=>b.addEventListener('click', ()=>{ jumpVerse = b.getAttribute('data-tv'); flashVerse(); }));
   // clicking a passage heading (or an added note marker) in the text jumps to its note
   document.querySelectorAll('.scr .s.hasnote, .scr .nmark').forEach(h=>{
     const go = ()=>{
