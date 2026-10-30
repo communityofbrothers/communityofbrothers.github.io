@@ -288,6 +288,8 @@ body.resizing{cursor:col-resize;user-select:none}
 .scr p{color:#EDF1F7;margin:0 0 15px}
 .scr .s{font-family:var(--display);font-weight:600;color:var(--gold-lt);
   font-size:1.02rem;letter-spacing:.05em;margin:30px 0 10px;line-height:1.4}
+.scr .r a.xref{color:#A9B4C6;text-decoration-color:rgba(169,180,198,.5)}
+.scr .r a.xref:hover{color:#fff}
 .scr .r{font-family:var(--sans);font-size:.76rem;color:#7F8CA3;margin:-6px 0 14px;
   letter-spacing:.02em}
 .scr .d{font-style:italic;color:#A9B4C6;font-size:1rem;margin:0 0 12px}
@@ -1828,7 +1830,8 @@ function renderChapterHTML(bk, chIdx){
       out += '<div class="s\u0002'+idx+'\u0002" data-si="'+idx+'">'+
              noteify(blk.c[0]||"", notes) +'</div>';
       return; }
-    if(blk.k === "r"){ out += '<div class="r">'+ (blk.c[0]||"") +'</div>'; return; }
+    if(blk.k === "r"){ const rt = blk.c[0]||"";
+      out += '<div class="r">'+ (/^\(/.test(rt) ? linkRefs(rt, false) : rt) +'</div>'; return; }
     let inner = "", open = false;
     if(carry){ inner += '<span class="vs" data-v="'+carry+'">'; open = true; }
     blk.c.forEach(it=>{
@@ -2137,7 +2140,7 @@ function xrefInit(){
   if(XRX || !BIBLE) return;
   const names = [];
   BIBLE.index.forEach(b=>{ XMAP[b.n.toLowerCase()] = b.a; names.push(b.n); });
-  const alias = {"Psalm":"PSA", "Song of Solomon":"SNG"};
+  const alias = {"Psalm":"PSA", "Song of Solomon":"SNG", "1 kings":"1KI"};
   Object.keys(alias).forEach(k=>{ XMAP[k.toLowerCase()] = alias[k]; names.push(k); });
   names.sort((x,y)=>y.length-x.length);
   const nm = names.map(n=>n.replace(/ /g,"\\s")).join("|");
@@ -2621,8 +2624,11 @@ document.addEventListener("DOMContentLoaded", function(){
 /* ---------- offline support (ignored where unavailable) ---------- */
 if("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")){
   window.addEventListener("load", function(){
-    navigator.serviceWorker.register("sw.js").catch(function(){ /* preview or no sw.js */ });
+    navigator.serviceWorker.register("sw.js").then(function(reg){
+      if(reg && reg.update) reg.update();
+    }).catch(function(){ /* preview or no sw.js */ });
   });
+
 }
 
 /* ---------- boot ---------- */
