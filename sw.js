@@ -1,6 +1,6 @@
 /* Community of Brothers — offline support.
    Bump CACHE when you upload a new index.html so phones pick up the change. */
-const CACHE = "cob-v40";
+const CACHE = "cob-v41";
 const CORE = ["./","./index.html","./manifest.webmanifest",
   "./assets/icon-192.png","./assets/icon-512.png","./assets/icon-180.png",
   "./apple-touch-icon.png","./favicon.ico","./assets/favicon-32.png",
