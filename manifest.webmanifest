@@ -1,7 +1,7 @@
 {
-  "name": "Community of Brothers",
-  "short_name": "Brothers",
-  "description": "A Christian brotherhood in Morley \u2014 Scripture, prayer and fellowship, with the full Bible and study notes.",
+  "name": "Ankyra",
+  "short_name": "Ankyra",
+  "description": "The whole Bible, free to read, with study notes that explain each passage in plain words, and honest answers to the questions people ask about the Christian faith.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

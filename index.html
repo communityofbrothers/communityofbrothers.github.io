@@ -336,11 +336,13 @@ body.menuopen{overflow:hidden}
   padding:20px 22px}
 .tcard h3{font-family:var(--display);font-size:1.1rem;color:var(--text);margin:0 0 12px;font-weight:600}
 .tcard ul{list-style:none;margin:0;padding:0}
-.tcard li{margin-bottom:11px;line-height:1.5;cursor:pointer}
+.tcard li{margin-bottom:11px;line-height:1.5}
+.tcard li button{display:block;width:100%;text-align:left;background:none;border:0;padding:0;cursor:pointer;font:inherit;color:inherit}
+.tcard.flash{box-shadow:0 0 0 3px rgba(224,192,99,.35)}
 .tcard .tr{font-family:var(--sans);font-size:.68rem;letter-spacing:.08em;
   color:var(--gold-dp);display:block;margin-bottom:1px}
 .tcard .th{font-size:.96rem;color:var(--text-2)}
-.tcard li:hover .th{color:var(--text)}
+.tcard li button:hover .th,.tcard li button:focus-visible .th{color:var(--text)}
 .gload{color:var(--text-3);font-style:italic;padding:20px 0}
 .pcard{border-left:2px solid rgba(224,192,99,.35);padding:2px 0 4px 14px;margin:0 0 26px;
   scroll-margin-top:20px;transition:background .6s}
@@ -703,9 +705,24 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
 .blist .grp{font-family:var(--sans);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:#7F8CA3;
   padding:10px 18px 2px}
 .blist button{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.ndot{width:7px;height:7px;border-radius:50%;flex:none}
-.ndot.full{background:var(--gold-lt)}
-.ndot.part{border:1.5px solid var(--gold-lt)}
+.ndot{width:9px;height:9px;border-radius:50%;flex:none;display:inline-block;box-sizing:border-box}
+.ndot.complete{background:var(--gold-lt)}
+.ndot.progress{border:1.5px solid var(--gold-lt);background:linear-gradient(90deg,var(--gold-lt) 50%,transparent 50%)}
+.ndot.brief{border:1.5px solid #6F7C93}
+.nkey{display:flex;flex-direction:column;gap:6px;font-family:var(--sans);font-size:.82rem !important}
+.nkey .ndot{margin-right:8px;vertical-align:0}
+.nkey .ndot.brief{border-color:var(--text-3)}
+.nkey .ndot.complete,.nkey .ndot.progress{border-color:var(--gold-dp)}
+.nkey .ndot.complete{background:var(--gold-dp)}
+.nkey .ndot.progress{background:linear-gradient(90deg,var(--gold-dp) 50%,transparent 50%)}
+.nstat{font-family:var(--sans);font-size:.8rem;line-height:1.55;color:#C9D2DF;background:rgba(255,255,255,.05);
+  border-left:3px solid var(--gold);padding:10px 12px;margin:0 0 18px}
+.nstat b{color:var(--gold-lt);font-weight:500}
+.nstat.brief{border-left-color:#6F7C93}
+.nstat a{color:var(--gold-lt)}
+.loaderr{color:#C3CCDB;font-family:var(--sans);font-size:.9rem;max-width:30em;margin:0 auto 14px;line-height:1.6}
+.chnavbtn{background:transparent;border:1px solid rgba(224,192,99,.4);color:var(--gold-lt);font-family:var(--sans);
+  font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;padding:10px 16px;cursor:pointer}
 .blegend{font-family:var(--sans);font-size:.68rem;color:#8A96AB;padding:2px 18px 6px;line-height:1.7}
 .blegend .ndot{display:inline-block;margin-right:6px;vertical-align:1px}
 .bsaved{font-family:var(--sans);font-size:.62rem;color:#7F8CA3;letter-spacing:.06em}
@@ -741,6 +758,54 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
   :root:not([data-theme="light"]) .stance .c-deb{background:rgba(232,180,95,.17);color:#EBC283}
   :root:not([data-theme="light"]) .stance .c-div{background:rgba(230,140,120,.18);color:#EDA997}}
 .box-note a,.band p a:not(.lnk):not(.btn){color:inherit;text-decoration-color:var(--gold)}
+
+/* search page */
+.sgo{display:block;width:100%;text-align:left;background:var(--navy);color:#F0F3F8;border:0;border-top:3px solid var(--gold);
+  padding:16px 18px;margin:0 0 22px;cursor:pointer}
+.sgo:hover{background:var(--navy-3)}
+.sgo-k{display:block;font-family:var(--sans);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-lt)}
+.sgo-t{display:block;font-family:var(--display);font-weight:600;font-size:1.35rem;color:#fff;margin-top:2px}
+.sgo-s{display:inline-block;font-family:var(--sans);font-size:.7rem;color:#C9D2DF;margin-top:4px}
+.sgo-p{display:block;font-family:var(--body);font-size:1.05rem;line-height:1.6;color:#D2D9E5;margin-top:6px}
+.sgo-p:empty{display:none}
+.sfilters{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 22px}
+.chip{font-family:var(--sans);font-size:.76rem;background:var(--surface);color:var(--text);border:1px solid var(--border);
+  padding:7px 12px;cursor:pointer;border-radius:999px;min-height:36px}
+.chip:hover{border-color:var(--gold)}
+.chip.on{background:var(--navy);color:var(--gold-lt);border-color:var(--navy)}
+.sgroup h2 span{font-family:var(--sans);font-size:.72rem;font-weight:400;letter-spacing:.04em;color:var(--text-3);margin-left:6px}
+.sitem b{display:block;font-family:var(--body);font-weight:600;color:var(--text);font-size:1.06rem;line-height:1.4}
+.sitem .sx{display:block;color:var(--text-2);font-size:.98rem;line-height:1.55;margin-top:2px}
+.sitem.verse .sx{color:var(--text);font-size:1.04rem}
+.sitem.soon{opacity:.7;cursor:default}
+.sdef{border-left:2px solid transparent}
+.sdef summary{list-style:none;cursor:pointer}
+.sdef summary::-webkit-details-marker{display:none}
+.sdef[open]{border-left-color:var(--gold)}
+.sdef .kwp{background:var(--navy);margin:8px 0 4px}
+.shelpbox{color:var(--text-2)}
+.shelpbox h2{font-size:1rem;margin:0 0 10px}
+.stry{list-style:none;padding:0;margin:0 0 16px;display:flex;flex-wrap:wrap;gap:6px}
+.smore{border-radius:2px}
+/* bottom bar (phones and tablets) */
+.tabbar{display:none}
+@media(max-width:979px){
+  .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:85;background:rgba(14,27,49,.97);
+    backdrop-filter:saturate(150%) blur(10px);-webkit-backdrop-filter:saturate(150%) blur(10px);
+    border-top:1px solid rgba(224,192,99,.25);padding:0 4px env(safe-area-inset-bottom,0px);transition:transform .25s ease}
+  .tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;
+    color:#AEB8C9;text-decoration:none;font-family:var(--sans);font-size:.64rem;letter-spacing:.04em}
+  .tabbar svg{width:22px;height:22px}
+  .tabbar a.on{color:var(--gold-lt)}
+  .tabbar a:hover{color:#fff}
+  body{padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))}
+  body.barhidden .tabbar{transform:translateY(100%)}
+  body.menuopen .tabbar{display:none}
+  .backchip,.totop{bottom:calc(72px + env(safe-area-inset-bottom,0px)) !important;transition:bottom .25s ease,opacity .25s}
+  body.barhidden .backchip,body.barhidden .totop{bottom:calc(16px + env(safe-area-inset-bottom,0px)) !important}
+  .updbar{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+  .menu{bottom:0}
+}
 </style>
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#0E1B31">
@@ -897,9 +962,9 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
       <h2>Pick the one that sounds like you</h2></div>
     <div class="starts">
       <div class="start"><h3>New to the Bible</h3>
-        <p>Start with Mark&rsquo;s Gospel. It is the shortest account of Jesus&rsquo; life, and it moves fast.
-          <i>The Bible Story in Ten Steps</i> shows where everything else fits.</p>
-        <p class="go"><a href="#/bible/MRK/1" data-ref="MRK/1">Read Mark 1 &rarr;</a>
+        <p>Start with Matthew&rsquo;s Gospel. It tells the story of Jesus from his birth to his resurrection, and its
+          notes are the fullest on the site. <i>The Bible Story in Ten Steps</i> shows where everything else fits.</p>
+        <p class="go"><a href="#/bible/MAT/1" data-ref="MAT/1">Read Matthew 1 &rarr;</a>
           <a href="docs/Ankyra-The-Bible-Story-in-Ten-Steps.pdf" target="_blank" rel="noopener">The Bible story in ten steps (PDF)</a></p></div>
       <div class="start"><h3>Wondering whether Christianity is true</h3>
         <p>Read <i>The Gospel, Given to You Straight</i> for the message in two pages. Then look at the questions
@@ -907,9 +972,11 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
         <p class="go"><a href="docs/Ankyra-The-Gospel-Given-to-You-Straight.pdf" target="_blank" rel="noopener">The gospel in two pages (PDF)</a>
           <a href="#/questions" data-go="questions">Questions people ask &rarr;</a></p></div>
       <div class="start"><h3>Studying a book in depth</h3>
-        <p>Every New Testament book, and Daniel, has notes on every passage. Open <i>About</i> the book at the top
-          of its notes, then work through it a passage at a time.</p>
-        <p class="go"><a href="#/bible" data-books>Choose a book &rarr;</a></p></div>
+        <p>Matthew and Philippians have complete notes, with comments on each verse. Open <i>About</i> the book at
+          the top of its notes, then work through it a passage at a time. The book list shows how far each
+          book&rsquo;s notes have got.</p>
+        <p class="go"><a href="#/bible/MAT/1" data-ref="MAT/1">Start with Matthew &rarr;</a>
+          <a href="#/bible" data-books>Choose a book &rarr;</a></p></div>
       <div class="start"><h3>Facing hard questions, or someone at the door</h3>
         <p><i>Questions people ask</i> covers the objections that come up most. If Jehovah&rsquo;s Witnesses call,
           start with <i>Read Your Own Bible Carefully</i>: one page of questions you can check in their own Bible.</p>
@@ -923,12 +990,13 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
   <div class="wrap narrow">
     <div class="topline"><div class="kicker">The study notes</div>
       <h2>Where the notes stand</h2></div>
-    <p class="lead">Every New Testament book has notes on every passage, and so does Daniel. Matthew has the
-      fullest notes so far, with comments on each verse and its history.</p>
-    <p>For now, most Old Testament books have a short note on each chapter. Fuller notes are being added book by
-      book.</p>
-    <p>The notes are written with the help of AI. Every claim is checked against the sources listed on the note.
-      Where Christians disagree, the notes set out the main views fairly.</p>
+    <p class="lead"><span data-ns="complete">Matthew and Philippians</span> have complete notes: every passage, with
+      comments on each verse, the history behind it, and the sources.</p>
+    <p><span data-ns="progress">26</span> more books have notes on every passage that are still being developed;
+      they will be produced to the same standard. The other books have a short note on each chapter for now. The
+      book list in the Bible shows where each book has got to.</p>
+    <p>The notes are written with the help of AI. In the complete notes, every claim is checked against the sources
+      listed on the note. Where Christians disagree, the notes set out the main views fairly.</p>
     <p><a class="lnk" href="#/notes" data-go="notes">How the notes are made &rarr;</a></p>
   </div>
 </section>
@@ -950,8 +1018,9 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
   <div class="bible-head"><div class="wrap wide">
     <h1>The Bible</h1>
     <p>The whole Bible, free to read. Every book has an introduction, and every New Testament book has notes on
-      each passage: the setting, what it means, the main point, and where Christians read it differently.
-      New to the Bible? Start with Mark. Tap a heading marked &ldquo;notes&rdquo; to open its note.</p>
+      each passage: the setting, what it means, the main point, and where Christians read it differently. The book
+      list shows how far each book&rsquo;s notes have got.
+      New to the Bible? Start with Matthew. Tap a heading marked &ldquo;notes&rdquo; to open its note.</p>
     <form class="bsrch" id="bsrch" role="search" autocomplete="off">
       <label class="vh" for="bq">Search the Bible</label>
       <input id="bq" type="search" placeholder="Search, or type a reference such as John 3:16">
@@ -998,8 +1067,14 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
   <section class="band">
     <div class="wrap narrow stance" id="stance">
       <h2 id="about-made">How they&rsquo;re made</h2>
-      <p>The notes are written with the help of AI. Every claim is checked against the sources listed on the
-        note, and the sources are linked wherever a free copy exists, so you can check them yourself.</p>
+      <p>The notes are written with the help of AI. In the books marked complete, every claim is checked against
+        the sources listed on the note, and the sources are linked wherever a free copy exists, so you can check
+        them yourself.</p>
+      <p>The notes for the other books are still being developed, and will be produced to the same standard. The
+        book list in the Bible shows where each book has got to:</p>
+      <p class="nkey"><span><span class="ndot complete"></span>Complete</span> <span><span class="ndot progress"></span>In progress:
+        notes on every passage, being brought up to the same standard</span> <span><span class="ndot brief"></span>Brief notes:
+        a short note on each chapter for now</span></p>
       <p>Nothing here replaces your own church or your own reading of the Bible.</p>
 
       <h2 id="about-report">Report a mistake</h2>
@@ -1141,72 +1216,61 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
   <section class="band"><div class="wrap" id="gres" aria-live="polite"></div></section>
 </div>
 
-<!-- ==================== RESOURCES ==================== -->
+<!-- ==================== QUESTIONS ==================== -->
 <div class="view" id="v-questions">
   <div class="phead"><div class="wrap">
-    <button class="back" data-go="home">&larr; Home</button>
     <div class="eyebrow">Questions people ask</div>
     <div class="rule"></div>
-    <h1>The hard questions, answered honestly</h1>
-    <p>These are the questions that come up most often &mdash; from men in the group, and
-      from people who are not Christians at all. Each answer is the study note attached to
-      the passage itself, so you can read it here and then go and check the passage for
-      yourself. Where Christians genuinely disagree, we say so and name the main positions
-      before telling you where we stand.</p>
+    <h1>Hard questions, honest answers</h1>
+    <p>These are the questions people ask most, believers and non-believers alike. Each answer is the study note on
+      the passage the question comes from, so you can read the answer and then check the passage yourself. Where
+      Christians disagree, the answer says so and sets out the main views before saying which one the notes take.</p>
   </div></div>
   <div class="band"><div class="wrap"><div class="qa" id="qlist">
     <div class="gload">Loading&hellip;</div></div></div></div>
 </div>
 
+<!-- ==================== TOPICS ==================== -->
 <div class="view" id="v-topics">
   <div class="phead"><div class="wrap">
-    <button class="back" data-go="home">&larr; Home</button>
     <div class="eyebrow">By topic</div>
     <div class="rule"></div>
-    <h1>Find what the Bible says about&hellip;</h1>
-    <p>A way into the study notes by subject rather than by book. Each topic lists passages
-      worth reading, with the one-line summary of what each contributes. Tap any of them to
-      open the passage and its full notes.</p>
+    <h1>What the Bible says about&hellip;</h1>
+    <p>A way into the study notes by subject rather than by book. Each topic lists passages worth reading, with one
+      line on what each adds. Tap any of them to open the passage and its notes.</p>
   </div></div>
   <div class="band"><div class="wrap"><div class="tgrid" id="tlist">
     <div class="gload">Loading&hellip;</div></div></div></div>
 </div>
 
+<!-- ==================== RESOURCES ==================== -->
 <div class="view" id="v-resources">
   <div class="phead"><div class="wrap">
-    <button class="back" data-go="home">&larr; Home</button>
     <div class="eyebrow">Resources</div>
     <div class="rule"></div>
-    <h1>What we make, and why we give it away</h1>
-    <p>Everything below was written for the men in our own group, and that
-      shapes it: plain words, no assumed knowledge, and candid about what is
-      genuinely disputed rather than pretending every question is settled. If it
-      is useful to you, take it. Print it, pass it on, use it in your own group.
-      We are not selling anything.</p>
+    <h1>Guides to print or keep</h1>
+    <p>Short guides in plain words, with nothing assumed, and honest about what is disputed. Print them, share them,
+      and use them on your own or with a small group. They are free for non-commercial use.</p>
   </div></div>
   <section class="band">
     <div class="wrap">
-      <div class="topline narrow"><div class="kicker">The thinking behind them</div>
-        <h2>Written to be used, not admired</h2></div>
-      <p class="narrow">Most Christian material assumes you already know the
-        vocabulary, already have the habit, and already know your way around
-        sixty-six books. Ours does not. Each guide starts from the question a
-        man actually asks rather than the answer we would like to give &mdash;
-        which is why the prayer guide begins with who you are praying to, and
-        the Bible-reading guide begins with why people stop.</p>
+      <div class="topline narrow"><div class="kicker">How they&rsquo;re written</div>
+        <h2>Written to be used</h2></div>
+      <p class="narrow">A lot of Christian writing assumes you already know the words, already have the habit, and
+        already know your way around sixty-six books. These guides don&rsquo;t. Each one starts from the question
+        people actually ask, which is why the prayer guide begins with who you are praying to, and the
+        Bible-reading guide begins with why people stop.</p>
       <div class="grid" id="resource-grid"></div>
     </div>
   </section>
   <section class="band dark">
     <div class="wrap narrow">
       <div class="topline"><div class="kicker">Getting hold of them</div>
-        <h2>Print it, or keep it on your phone</h2></div>
-      <p>Every guide downloads as a PDF, laid out to print cleanly on A4 and
-        equally readable on a phone or laptop. Two of them &mdash; the Wednesday
-        discussion sheet and the six-week reading plan &mdash; have proper form
-        fields, so you can type and tick straight into them on a device instead
-        of printing. Take them, keep them, pass them on. If you want to use any
-        of this with your own group, you do not need our permission.</p>
+        <h2>Print them, or keep them on your phone</h2></div>
+      <p>Every guide downloads as a PDF, laid out to print cleanly on A4 and easy to read on a phone or laptop. Two of
+        them, the Discussion Sheet and the six-week reading plan in <i>Reading the Bible on Your Own</i>, have boxes
+        you can type and tick in on a device instead of printing. Keep them and pass them on. To use them with a
+        group, you don&rsquo;t need to ask.</p>
     </div>
   </section>
 </div>
@@ -1214,59 +1278,47 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
 <!-- ==================== APOLOGETICS ==================== -->
 <div class="view" id="v-apologetics">
   <div class="phead"><div class="wrap">
-    <button class="back" data-go="home">&larr; Home</button>
     <div class="eyebrow">Apologetics</div>
     <div class="rule"></div>
     <h1>Giving a reason for the hope that is in you</h1>
-    <p>Apologetics is the work of explaining why Christians believe what they
-      believe, and answering genuine questions honestly. The word comes from the
-      Greek <i>apologia</i> &mdash; a reasoned defence, the kind you would give
-      in a courtroom. Peter tells ordinary believers to be ready to give one, and
-      adds that it should be offered with gentleness and respect. Both halves of
-      that instruction matter.</p>
+    <p>Apologetics means explaining why Christians believe what they believe, and answering real questions honestly.
+      The word comes from the Greek <i>apologia</i>: a reasoned defence, like one given in a court. Peter tells
+      ordinary Christians to be ready to give one, and to give it with gentleness and respect
+      (<a href="#/bible/1PE/3/15" data-ref="1PE/3/15">1 Peter 3:15</a>). Both halves matter.</p>
   </div></div>
 
   <section class="band">
     <div class="wrap narrow">
       <div class="topline"><div class="kicker">Why it matters</div>
-        <h2>Because the questions are coming anyway</h2></div>
-      <p>Nobody has ever been argued into the kingdom of God, and we are not
-        trying to win debates. But a man with nothing to say when a colleague
-        asks whether the Bible has been changed, or when someone knocks on his
-        door with a different Jesus, tends to conclude quietly that there is no
-        answer. There usually is one. He simply has never been shown it.</p>
-      <p>So these exist for two reasons. The first is to steady our own men
-        &mdash; to make sure the first serious challenge they meet is not the
-        first time they have thought about it. The second is for anyone weighing
-        the claims seriously, from whichever direction they come. We state other
-        people&rsquo;s positions in terms they would recognise, because an
-        argument that only defeats a caricature is worth nothing.</p>
-      <p>Where the true answer is that something is difficult, disputed or
-        simply unknown, we say so. Overclaiming is how people lose their faith
-        five years later.</p>
+        <h2>Because the questions come anyway</h2></div>
+      <p>Nobody is argued into faith, and winning debates isn&rsquo;t the point. But if a colleague asks whether the
+        Bible has been changed, or someone knocks on your door with a different Jesus, and you have nothing to say,
+        it&rsquo;s easy to decide quietly that there is no answer. There usually is one. You just haven&rsquo;t
+        been shown it yet.</p>
+      <p>So these guides are for two kinds of reader: Christians who want to be ready before the first serious
+        challenge comes, and anyone weighing the claims for themselves, from whichever direction. Other
+        people&rsquo;s views are set out in words they would recognise, because an argument that only beats a
+        caricature is worth nothing.</p>
+      <p>Where the true answer is that something is difficult, disputed or simply unknown, the guides say so.
+        Overclaiming is how people lose their faith five years later.</p>
     </div>
   </section>
 
   <section class="band alt">
     <div class="wrap">
-      <div class="topline narrow"><div class="kicker">What we have</div>
+      <div class="topline narrow"><div class="kicker">What&rsquo;s here</div>
         <h2>Topic by topic</h2></div>
-      <p class="narrow">Some are finished; others are in preparation. We would
-        rather publish slowly and be right than quickly and be corrected.</p>
+      <p class="narrow">Some are finished; others are still being written. It is better to publish slowly and be
+        right than quickly and be corrected.</p>
       <div class="box-note narrow">
-        <div class="bn-t">The Jehovah&rsquo;s Witness material is a set of three,
-          meant to be read in order</div>
-        <p>The first is a single sheet of questions, short enough to be taken at
-          a door and checked the same evening. The second works through those
-          questions properly and adds more, arguing entirely from the
-          Witness&rsquo;s own Bible and interlinear rather than from ours. The
-          third is about the organisation&rsquo;s published record, and it is
-          deliberately last &mdash; it is the hardest to read, and the case does
-          not depend on it.</p>
-        <p style="margin-bottom:0">All three give every reference in full, state
-          the Watchtower&rsquo;s own answers in the Watchtower&rsquo;s own words,
-          and list the arguments we decided against using. Nothing in them
-          concerns anyone&rsquo;s private life or motives.</p>
+        <div class="bn-t">The Jehovah&rsquo;s Witness guides are a set of three, meant to be read in order</div>
+        <p>The first is a single sheet of questions, short enough to hand over at a door and check the same evening.
+          The second works through those questions properly and adds more, arguing entirely from the
+          Witnesses&rsquo; own Bible and interlinear. The third is about the organisation&rsquo;s published record.
+          It comes last on purpose: it is the hardest to read, and the case does not depend on it.</p>
+        <p style="margin-bottom:0">All three give every reference in full, state the Watchtower&rsquo;s own answers
+          in its own words, and list the arguments left out. Nothing in them concerns anyone&rsquo;s private life or
+          motives.</p>
       </div>
       <div class="grid" id="apologetics-grid"></div>
     </div>
@@ -1274,80 +1326,55 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
 
   <section class="band dark">
     <div class="wrap narrow">
-      <div class="topline"><div class="kicker">How we go about it</div>
-        <h2>Four rules we hold ourselves to</h2></div>
+      <div class="topline"><div class="kicker">How they&rsquo;re written</div>
+        <h2>Four rules</h2></div>
       <ul class="ticks">
-        <li><b>Quote people accurately, from their own sources.</b> If we say a
-          group teaches something, we show where they teach it.</li>
-        <li><b>Separate what is certain from what is arguable.</b> Treating every
-          point as equally strong weakens the strong ones.</li>
-        <li><b>Attack the argument, never the person.</b> The man at your door is
-          not your enemy, and he almost certainly believes what he is saying.</li>
-        <li><b>Say &ldquo;I don&rsquo;t know&rdquo; when it is true.</b> It costs
-          nothing and it buys you the right to be believed on everything
-          else.</li>
+        <li><b>Quote people accurately, from their own sources.</b> If a guide says a group teaches something, it
+          shows where they teach it.</li>
+        <li><b>Separate what is certain from what is arguable.</b> Treating every point as equally strong weakens the
+          strong ones.</li>
+        <li><b>Answer the argument, never attack the person.</b> The person at your door is not your enemy, and
+          almost certainly believes what they are saying.</li>
+        <li><b>Say &ldquo;I don&rsquo;t know&rdquo; when it is true.</b> It costs nothing, and it earns the right to
+          be believed on everything else.</li>
       </ul>
     </div>
   </section>
 </div>
 
-<!-- ==================== CHURCH ==================== -->
+<!-- ==================== FINDING A CHURCH ==================== -->
 <div class="view" id="v-church">
   <div class="phead"><div class="wrap">
-    <button class="back" data-go="home">&larr; Home</button>
     <div class="eyebrow">Finding a church</div>
     <div class="rule"></div>
-    <h1>Every man here needs a church, including us</h1>
-    <p>Community of Brothers is not a church and was never meant to be one. It has
-      its own leadership, but it does not appoint elders, baptise anyone or take
-      communion, because those belong to the church. A
-      Wednesday night with other men is a good thing; it is not the thing the New
-      Testament calls the church, and a man who has only this will find out
-      eventually that something is missing.</p>
+    <h1>Why you need a church, and how to find one</h1>
+    <p>Reading the Bible on your own is good, and Ankyra is here to help with it. But it isn&rsquo;t a church, and it
+      can&rsquo;t be one. A church is where Christians meet to worship God, hear the Bible taught, share the
+      Lord&rsquo;s Supper (also called communion), baptise new believers and look after one another. This page sets
+      out what to look for.</p>
   </div></div>
-
-  <section class="band">
-    <div class="wrap">
-      <div class="topline narrow"><div class="kicker">The simplest answer</div>
-        <h2>Come to ours</h2></div>
-      <p class="narrow">Most of us are at the same church, and you would be
-        welcome on a Sunday with no more ceremony than turning up on a Wednesday.
-        Come with one of us the first time and nothing about it will be strange
-        &mdash; you will know somebody before you walk in, which is most of what
-        makes a first visit hard.</p>
-      <div class="visit" id="homechurch"></div>
-      <p class="small narrow" style="margin-top:22px;color:var(--text-3)">
-        Ask any of the men on a Wednesday and someone will happily meet you there
-        and sit with you.</p>
-    </div>
-  </section>
 
   <section class="band alt">
     <div class="wrap narrow">
-      <div class="topline"><div class="kicker">If ours is not for you</div>
-        <h2>What to look for</h2></div>
-      <p>Ours will not suit everybody, and that is fine &mdash; distance, family,
-        or simply where you already feel at home are all good reasons. What
-        matters far more than which building you end up in is that you end up in
-        one. Six things worth checking.</p>
+      <div class="topline"><div class="kicker">What to look for</div>
+        <h2>Six things worth checking</h2></div>
+      <p>Which building you end up in matters far less than ending up in one. Distance, family, and where you already
+        feel at home are all good reasons to choose. Beyond that, look for these.</p>
       <ul class="ticks">
-        <li><b>The Bible is opened and explained.</b> The teaching should work
-          through a passage rather than around a theme, so that you could go home
-          and check it &mdash; which is exactly what the Bereans were commended
-          for doing.</li>
-        <li><b>Jesus and the cross are central, not assumed.</b> If you could sit
-          through several weeks without hearing why his death matters, something
-          has drifted.</li>
-        <li><b>You can find out what they believe.</b> A church with nothing
-          written down that you can read is a church you cannot assess.</li>
-        <li><b>People actually know each other.</b> The test is simple: would
-          anybody notice if you stopped coming for a month?</li>
-        <li><b>Leadership and money are accountable.</b> Plural leadership,
-          published accounts, and a safeguarding policy you can ask about. That
-          is not cynicism; it is the ordinary protection of everybody
+        <li><b>The Bible is opened and explained.</b> The teaching should work through a passage rather than around
+          a theme, so that you could go home and check it, which is exactly what the Bereans were praised for doing
+          (<a href="#/bible/ACT/17/11" data-ref="ACT/17/11">Acts 17:11</a>).</li>
+        <li><b>Jesus and the cross are central, not assumed.</b> If you could sit through several weeks without
+          hearing why his death matters, something has drifted.</li>
+        <li><b>You can find out what they believe.</b> A church with nothing written down that you can read is a
+          church you cannot assess.</li>
+        <li><b>People actually know each other.</b> The test is simple: would anyone notice if you stopped coming
+          for a month?</li>
+        <li><b>Leadership and money are accountable.</b> More than one leader, published accounts, and a
+          safeguarding policy you can ask about. That is not cynicism; it is the ordinary protection of everyone
           involved.</li>
-        <li><b>They look outward.</b> A church that exists only for the people
-          already inside it has stopped doing half its job.</li>
+        <li><b>They look outward.</b> A church that exists only for the people already inside it has stopped doing
+          half its job.</li>
       </ul>
     </div>
   </section>
@@ -1356,52 +1383,40 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
     <div class="wrap narrow">
       <div class="topline"><div class="kicker">And what not to worry about</div>
         <h2>Things that matter less than you think</h2></div>
-      <p>Men rule churches out for reasons that have nothing to do with whether
-        the church is any good.</p>
+      <p>People often rule churches out for reasons that have nothing to do with whether the church is any good.</p>
       <ul class="ticks">
-        <li><b>The building.</b> Ancient stone or a school hall. Neither tells
-          you anything.</li>
-        <li><b>The music.</b> Organ, band, or nothing at all. It is one of the
-          most common reasons people pick a church and one of the least
-          important.</li>
-        <li><b>The size.</b> A church of thirty people who know each other beats
-          one of three hundred who do not, and a large church with real small groups beats
-          both.</li>
-        <li><b>What people wear.</b> Nobody serious is checking.</li>
-        <li><b>Not understanding everything.</b> You will not, for a while. That
-          is what the rest of us are for, and there is a sheet explaining the
-          vocabulary in the resources.</li>
+        <li><b>The building.</b> Ancient stone or a school hall. Neither tells you anything.</li>
+        <li><b>The music.</b> Organ, band, or nothing at all. It is one of the most common reasons people choose a
+          church and one of the least important.</li>
+        <li><b>The size.</b> A church of thirty people who know each other beats one of three hundred who
+          don&rsquo;t, and a large church with real small groups beats both.</li>
+        <li><b>What people wear.</b> Nobody sensible is checking.</li>
+        <li><b>Not understanding everything.</b> You won&rsquo;t, for a while. That is what other Christians are for,
+          and <a href="docs/Ankyra-Church-Words-Explained.pdf" target="_blank" rel="noopener"><i>Church Words
+          Explained</i></a> covers the vocabulary.</li>
       </ul>
       <div class="box-note">
         <div class="bn-t">A practical suggestion</div>
-        <p>Go three times before you decide anything. One visit tells you about
-          that morning rather than about the church &mdash; everybody has an off
-          week and everybody can manage one good one.</p>
-        <p style="margin-bottom:0">Then ask somebody there a direct question:
-          what would you say this church is actually for? The answer, and how
-          readily it comes, will tell you more than the service did.</p>
+        <p>Go three times before you decide anything. One visit tells you about that morning rather than about the
+          church: everyone has an off week, and everyone can manage one good one.</p>
+        <p style="margin-bottom:0">Then ask someone there a direct question: what would you say this church is
+          actually for? The answer, and how readily it comes, will tell you more than the service did.</p>
       </div>
     </div>
   </section>
 
   <section class="band dark">
     <div class="wrap narrow">
-      <div class="topline"><div class="kicker">Why we keep saying this</div>
-        <h2>The risk in a group like ours</h2></div>
-      <p>A midweek group of men you like, who read the Bible and pray together,
-        can quietly become somebody&rsquo;s whole Christian life. It is easy to
-        see how &mdash; it is warmer than a Sunday service, nobody is a stranger,
-        and you can miss a week without anyone minding.</p>
-      <p>But we cannot do for you what a church does. We are all roughly the same
-        age and we are all men. There are no children here, no older believers
-        who have already been through what you are about to go through, nobody to
-        baptise you, and nobody carrying a church&rsquo;s authority and
-        responsibility to look after your soul. A church has all of that. It also has people you
-        would never have chosen as friends, which turns out to be part of the
-        point.</p>
-      <p style="margin-bottom:0">So come on a Wednesday, and go somewhere on a
-        Sunday. We would rather you did both &mdash; and if you can only manage
-        one, do not let it be this one.</p>
+      <div class="topline"><div class="kicker">Why this matters</div>
+        <h2>Why a website isn&rsquo;t enough</h2></div>
+      <p>A website you like can quietly become someone&rsquo;s whole Christian life. It is always there, it never asks
+        anything of you, and nobody notices if you stop.</p>
+      <p>But it can&rsquo;t do what a church does. There are no older Christians here who have already been through
+        what you are facing, nobody to baptise you, and nobody with a church&rsquo;s responsibility to care for you.
+        A church has all of that. It also has people you would never have chosen as friends, which turns out to be
+        part of the point.</p>
+      <p style="margin-bottom:0">So use Ankyra, and go to church on Sunday. If you can only manage one, make it the
+        church.</p>
     </div>
   </section>
 </div>
@@ -1428,6 +1443,14 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
     <p class="report" data-report></p>
   </div>
 </div></footer>
+
+<nav class="tabbar" id="tabbar" aria-label="Quick links">
+  <a href="#/home" data-go="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11 12 4l8.5 7M6 9.5V20h4.5v-5.5h3V20H18V9.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>Home</span></a>
+  <a href="#/bible" data-go="bible"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5C10 5 7.5 4.5 4 4.5v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2v-14c-3.5 0-6 .5-8 2Zm0 0v14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>Bible</span></a>
+  <a href="#/questions" data-go="questions"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9.6 9.6a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="16.8" r="1" fill="currentColor"/></svg><span>Questions</span></a>
+  <a href="#/topics" data-go="topics"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h3M4 12h3M4 18h3M10 6h10M10 12h10M10 18h10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>Topics</span></a>
+  <a href="#/search" data-go="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>Search</span></a>
+</nav>
 
 
 <script>
@@ -1516,10 +1539,7 @@ const APOLOGETICS = [
   meta:"Planned", status:"soon", url:""}
 ];
 
-/* Filled either inline (single-file build) or fetched from assets/ (split build). */
-const INLINE_NOTES = null;
-const INLINE_SECTIONS = null;
-const INLINE_GLOSSARY = null;
+/* Notes data, filled one book at a time from assets/notes/BOOK.json as books are opened. */
 let GLOSSARY = {};
 let NOTES = {intros:{}, chapters:{}};
 let SECTIONS = {};
@@ -1570,9 +1590,10 @@ const EXTRA_NOTES = {
 };
 
 /* merge the additions over the main set (called once the notes have loaded) */
-function mergeExtraNotes(){
+function mergeExtraNotes(only){
   try{
     Object.keys(EXTRA_NOTES).forEach(function(bk){
+      if(only && bk !== only) return;
       if(!NOTES.chapters[bk]) NOTES.chapters[bk] = {};
       Object.keys(EXTRA_NOTES[bk]).forEach(function(c){
         const add = EXTRA_NOTES[bk][c];
@@ -1600,9 +1621,9 @@ let current = "home";
 
 function setTitle(t){ document.title = (t && t !== "Ankyra") ? t + " · Ankyra" : "Ankyra: the Bible, with study notes"; }
 function markNav(name){
-  document.querySelectorAll(".nav-links a, .mlist a").forEach(a=>{
-    const on = (ALIAS[a.getAttribute("data-go")] || a.getAttribute("data-go")) === name && name !== "home"
-            || (a.getAttribute("data-go") === "about" && name === "home");
+  document.querySelectorAll(".nav-links a, .mlist a, .tabbar a").forEach(a=>{
+    const g = a.getAttribute("data-go"), tab = !!a.closest(".tabbar");
+    const on = (ALIAS[g] || g) === name && (name !== "home" || tab) || (g === "about" && name === "home");
     a.classList.toggle("on", on);
     if(on) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
   });
@@ -1684,8 +1705,7 @@ function lastPlace(){
   return null;
 }
 function placeName(sv){
-  const n = (BIBLE && BIBLE.index.find(x=>x.a===sv.b)) || (typeof BOOKS !== "undefined" && BOOKS.find && BOOKS.find(x=>x.a===sv.b));
-  return (n ? n.n : (BOOKNAMES[sv.b] || sv.b)) + " " + (sv.c || 1);
+  return (BOOKNAMES[sv.b] || sv.b) + " " + (sv.c || 1);
 }
 function paintResume(){
   const sv = lastPlace();
@@ -1712,74 +1732,90 @@ function card(item){
     '<span class="pill'+(soon?'':' on')+'">'+item.meta+'</span>'+link+'</div></article>';
 }
 
-/* ---------- Bible ---------- */
+/* ---------- Bible ----------
+   Each book is two small files, loaded when the book is opened:
+     assets/bible/BOOK.json  the BSB text (never changes)
+     assets/notes/BOOK.json  {intro, chapters, sections}: the book introduction,
+                             short chapter notes and passage notes
+   assets/notes/index.json says how far each book's notes have got. */
 let BIBLE = null, loading = false;
-let curBook = "MRK", curCh = 1;
+let curBook = "MAT", curCh = 1;
+let NOTE_INDEX = null;
+const bookLoads = {};
 
-async function initBible(){
-  if(BIBLE || loading) { if(BIBLE) renderBible(); return; }
-  loading = true;
-  const bar = document.getElementById("bbar");
-  const tick = setInterval(()=>{ if(bar){ const w=parseFloat(bar.style.width)||0;
-    if(w<88) bar.style.width = (w+7)+"%"; } }, 140);
-  try{
-    const el = document.getElementById("bible-payload");
-    const b64 = el ? el.textContent.trim() : "";
-    let bin;
-    if(b64){
-      bin = Uint8Array.from(atob(b64), c=>c.charCodeAt(0));
-      NOTES = INLINE_NOTES; SECTIONS = INLINE_SECTIONS; GLOSSARY = INLINE_GLOSSARY || {};
-    } else {
-      const [gz, nt, sc, gl] = await Promise.all([
-        fetch("assets/bsb.gz").then(r=>{ if(!r.ok) throw new Error("bsb.gz "+r.status); return r.arrayBuffer(); }),
-        fetch("assets/notes.json").then(r=>{ if(!r.ok) throw new Error("notes.json "+r.status); return r.json(); }),
-        fetch("assets/sections.json").then(r=>{ if(!r.ok) throw new Error("sections.json "+r.status); return r.json(); }),
-        fetch("assets/glossary.json").then(r=> r.ok ? r.json() : {}).catch(()=>({}))
-      ]);
-      bin = new Uint8Array(gz); NOTES = nt; SECTIONS = sc; GLOSSARY = gl || {};
-    }
-    mergeExtraNotes();
-    let text;
-    if(typeof DecompressionStream !== "undefined"){
-      const ds = new DecompressionStream("gzip");
-      const stream = new Blob([bin]).stream().pipeThrough(ds);
-      text = await new Response(stream).text();
-    } else {
-      throw new Error("no DecompressionStream");
-    }
-    BIBLE = JSON.parse(text);
-    if(bar) bar.style.width = "100%";
-    clearInterval(tick);
-    buildBookList();
-    if(hashRef && BIBLE.books[hashRef.b]){
-      curBook = hashRef.b; curCh = hashRef.c; jumpVerse = hashRef.v;
-    } else {
-      try{ const sv = JSON.parse(store("last") || "null");
-           if(sv && BIBLE.books[sv.b]){ curBook = sv.b; curCh = sv.c || 1; } }catch(e){}
-    }
-    renderBible();
-    document.getElementById("bload").style.display = "none";
-    document.getElementById("bcontent").style.display = "block";
-  }catch(err){
-    clearInterval(tick);
-    document.getElementById("bload").innerHTML =
-      "<p style='color:#C3CCDB'>The Bible text could not be loaded in this browser.<br>"+
-      "It needs a current version of Chrome, Safari, Firefox or Edge.</p>";
-    console.error(err);
-  }
-  loading = false;
+function getJSON(url){
+  return fetch(url).then(r=>{ if(!r.ok) throw new Error(url+" "+r.status); return r.json(); });
+}
+function loadNoteIndex(){
+  if(NOTE_INDEX) return Promise.resolve(NOTE_INDEX);
+  return getJSON("assets/notes/index.json").then(d=>{ NOTE_INDEX = d; return d; }).catch(()=>null);
+}
+function ensureBook(a){
+  if(BIBLE.books[a]) return Promise.resolve();
+  if(bookLoads[a]) return bookLoads[a];
+  bookLoads[a] = Promise.all([getJSON("assets/bible/"+a+".json"), getJSON("assets/notes/"+a+".json").catch(()=>({}))])
+    .then(([text, nb])=>{
+      BIBLE.books[a] = text;
+      if(nb.intro) NOTES.intros[a] = nb.intro;
+      NOTES.chapters[a] = nb.chapters || {};
+      SECTIONS[a] = nb.sections || {};
+      mergeExtraNotes(a);
+    })
+    .finally(()=>{ delete bookLoads[a]; });
+  return bookLoads[a];
 }
 
-/* "full" = notes on every passage of every chapter; "part" = some chapters */
+async function initBible(){
+  if(BIBLE){ renderBible(); return; }
+  if(loading) return;
+  loading = true;
+  BIBLE = {index: BOOKS, books: {}};
+  if(hashRef && BOOKS.some(b=>b.a===hashRef.b)){
+    curBook = hashRef.b; curCh = hashRef.c; jumpVerse = hashRef.v;
+  } else {
+    const sv = lastPlace(); if(sv && BOOKS.some(b=>b.a===sv.b)){ curBook = sv.b; curCh = sv.c || 1; }
+  }
+  buildBookList();
+  getJSON("assets/glossary.json").then(g=>{ GLOSSARY = g || {}; }).catch(()=>{});
+  loadNoteIndex().then(()=>{ buildBookList(); markBookList(); });
+  loading = false;
+  renderBible();
+}
+
+/* shown while a book's files arrive; if they can't (offline, never opened), say so plainly */
+function showBookLoading(a){
+  const c = document.getElementById("bcontent"), l = document.getElementById("bload");
+  l.style.display = "block"; c.style.display = "none";
+  l.innerHTML = 'Opening '+(BOOKNAMES[a]||a)+'&hellip;<div class="bar"><i id="bbar" style="width:30%"></i></div>';
+  ensureBook(a).then(()=>{ if(curBook === a) renderBible(); }).catch(err=>{
+    console.error(err);
+    if(curBook !== a) return;
+    l.innerHTML = '<p class="loaderr">'+(BOOKNAMES[a]||a)+' could not be opened. '+
+      (navigator.onLine === false ? 'You seem to be offline, and this book has not been saved on this device yet.'
+        : 'Please check your connection and try again.')+
+      '</p><button type="button" class="chnavbtn" id="bretry">Try again</button>';
+    const r = document.getElementById("bretry"); if(r) r.onclick = ()=>showBookLoading(a);
+  });
+}
+
+/* how far a book's notes have got (set by hand in assets/notes/index.json):
+   complete = written to the full standard; progress = notes on each passage, being brought up to it;
+   brief = short notes only for now */
+const STATUS_TEXT = {complete:"Complete", progress:"In progress", brief:"Brief notes"};
 function notesStatus(a){
-  const b = BOOKS.find(x=>x.a===a); if(!b) return "";
-  const done = Object.keys(SECTIONS[a] || {}).length;
-  return done >= b.c ? "full" : done ? "part" : "";
+  return (NOTE_INDEX && NOTE_INDEX.status && NOTE_INDEX.status[a]) || "";
+}
+function markBookList(){
+  document.querySelectorAll("#blist button").forEach(b=>{
+    const on = b.getAttribute("data-bk")===curBook;
+    b.classList.toggle("on", on);
+    if(on) b.setAttribute("aria-current","true"); else b.removeAttribute("aria-current");
+  });
 }
 function buildBookList(){
   const ul = document.getElementById("blist");
-  let html = '<li class="blegend"><span class="ndot full"></span>Notes on every passage<br>'+
-             '<span class="ndot part"></span>Notes on some passages</li>', lastT = null, lastG = null;
+  let html = '<li class="blegend"><span class="ndot complete"></span>Complete notes<br>'+
+             '<span class="ndot progress"></span>Notes in progress<br><span class="ndot brief"></span>Brief notes for now</li>', lastT = null, lastG = null;
   BOOKS.forEach(b=>{
     if(b.t !== lastT){
       html += '<li><div class="tt">'+(b.t==="OT"?"Old Testament":"New Testament")+'</div></li>';
@@ -1788,7 +1824,7 @@ function buildBookList(){
     if(b.g !== lastG){ html += '<li class="grp">'+b.g+'</li>'; lastG = b.g; }
     const st = notesStatus(b.a);
     html += '<li><button type="button" data-bk="'+b.a+'"><span>'+b.n+'</span>'+
-      (st ? '<span class="ndot '+st+'" aria-hidden="true"></span><span class="vh">, notes on '+(st==="full"?"every":"some")+' passages</span>' : '')+
+      (st ? '<span class="ndot '+st+'" aria-hidden="true"></span><span class="vh">, '+STATUS_TEXT[st].toLowerCase()+'</span>' : '')+
       '</button></li>';
   });
   ul.innerHTML = html;
@@ -1799,15 +1835,19 @@ function buildBookList(){
       renderBible(); window.scrollTo(0,0);
     });
   });
+  markBookList();
   const sf = document.getElementById("bsrch");
   if(sf && !sf.dataset.wired){
     sf.dataset.wired = "1";
     sf.addEventListener("submit", e=>{
       e.preventDefault();
-      doSearch(document.getElementById("bq").value);
+      const q = document.getElementById("bq").value.trim();
+      if(q) searchFor(q);
     });
   }
   const find = document.getElementById("bfind");
+  if(find.dataset.wired) return;
+  find.dataset.wired = "1";
   find.addEventListener("input", ()=>{
     const q = find.value.trim().toLowerCase();
     ul.querySelectorAll("li").forEach(li=>{
@@ -1875,115 +1915,9 @@ function noteify(text, notes){
   });
 }
 
-/* ---------- Bible search ---------- */
-let VINDEX = null;            // flat verse list, built once on first search
 let jumpVerse = null;         // verse to flash after the next render
-
 function stripNotes(t){ return t.replace(/\u0001\d+\u0001/g, ""); }
-
-function buildIndex(){
-  if(VINDEX) return VINDEX;
-  VINDEX = [];
-  BIBLE.index.forEach(meta=>{
-    const bk = BIBLE.books[meta.a];
-    bk.c.forEach((ch, ci)=>{
-      let cur = null, buf = "";
-      const flush = ()=>{ if(cur !== null && buf.trim())
-        VINDEX.push({a:meta.a, n:meta.n, c:ci+1, v:cur, t:buf.trim()}); };
-      ch.b.forEach(blk=>{
-        if(blk.k === "s" || blk.k === "r" || blk.k === "b") return;
-        blk.c.forEach(it=>{
-          if(typeof it === "string"){ buf += " " + stripNotes(it); }
-          else if(it.v){ flush(); cur = it.v; buf = ""; }
-        });
-      });
-      flush();
-    });
-  });
-  return VINDEX;
-}
-
-/* "John 3:16", "jn 3", "1 cor 13:4", "psalm 23" */
-function parseRef(q){
-  const m = q.trim().match(/^((?:[1-3]\s*)?[A-Za-z][A-Za-z\s]*?)\s*(\d+)?\s*(?::\s*(\d+))?$/);
-  if(!m) return null;
-  const raw = m[1].replace(/\s+/g," ").trim().toLowerCase();
-  if(raw.length < 2) return null;
-  let hit = BIBLE.index.find(b=>b.n.toLowerCase() === raw)
-         || BIBLE.index.find(b=>b.a.toLowerCase() === raw.replace(/\s/g,""))
-         || BIBLE.index.find(b=>b.n.toLowerCase().replace(/\s/g,"")
-                                 .startsWith(raw.replace(/\s/g,"")));
-  if(!hit) return null;
-  return {a:hit.a, n:hit.n, c:m[2] ? parseInt(m[2],10) : 1,
-          v:m[3] ? m[3] : null};
-}
-
 function esc2(t){ return t.replace(/[&<>]/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;" }[c])); }
-
-function doSearch(q){
-  q = (q||"").trim();
-  if(q.length < 2) return;
-  const ref = parseRef(q);
-  if(ref){
-    const bk = BIBLE.books[ref.a];
-    curBook = ref.a;
-    curCh = Math.min(Math.max(ref.c,1), bk.c.length);
-    jumpVerse = ref.v;
-    searching = false;
-    renderBible();
-    return;
-  }
-  const idx = buildIndex();
-  const needle = q.toLowerCase();
-  const hits = [];
-  for(let i=0;i<idx.length;i++){
-    if(idx[i].t.toLowerCase().indexOf(needle) !== -1){
-      hits.push(idx[i]);
-      if(hits.length >= 300) break;
-    }
-  }
-  renderResults(q, hits, idx.length);
-}
-
-let searching = false;
-
-function renderResults(q, hits, scanned){
-  searching = true;
-  const rx = new RegExp("("+q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig");
-  let html = '<div class="sres"><div class="shead">'+
-    '<div><h1 class="bk-title" style="font-size:1.5rem;margin:0">Search</h1>'+
-    '<div class="scount">'+(hits.length >= 300 ? "First 300 of many" :
-      hits.length + (hits.length===1?" verse":" verses"))+
-    ' matching &ldquo;'+esc2(q)+'&rdquo;</div></div>'+
-    '<button class="sclose" id="sclose">Back to reading</button></div>';
-  if(!hits.length){
-    html += '<p style="color:#9AA5B8">Nothing found. Try a shorter phrase, or '+
-            'type a reference such as <i>Romans 8:28</i>.</p>';
-  }
-  hits.forEach(h=>{
-    let t = esc2(h.t);
-    if(t.length > 260) t = t.slice(0,260) + "&hellip;";
-    t = t.replace(rx, "<mark>$1</mark>");
-    html += '<button class="hit" data-a="'+h.a+'" data-c="'+h.c+'" data-v="'+h.v+'">'+
-            '<span class="hr">'+h.n+' '+h.c+':'+h.v+'</span>'+t+'</button>';
-  });
-  html += '</div>';
-  const c = document.getElementById("bcontent");
-  c.innerHTML = html; c.style.display = "block";
-  document.getElementById("bload").style.display = "none";
-  document.querySelector(".reader").scrollIntoView({behavior:"smooth"});
-  const cl = document.getElementById("sclose");
-  if(cl) cl.addEventListener("click", ()=>{ searching=false; renderBible(); });
-  c.querySelectorAll(".hit").forEach(b=>{
-    b.addEventListener("click", ()=>{
-      curBook = b.getAttribute("data-a");
-      curCh = parseInt(b.getAttribute("data-c"),10);
-      jumpVerse = b.getAttribute("data-v");
-      searching = false;
-      renderBible();
-    });
-  });
-}
 
 function flashVerse(){
   if(!jumpVerse) return;
@@ -2011,8 +1945,9 @@ function gotoPlace(p){ if(!p) return; curBook = p.b; curCh = p.c; renderBible();
 
 function renderBible(){
   if(!BIBLE) return;
+  if(!BOOKS.some(b=>b.a===curBook)) curBook = "MAT";
   const bk = BIBLE.books[curBook];
-  if(!bk) return;
+  if(!bk){ showBookLoading(curBook); return; }
   const meta = BOOKS.find(x=>x.a===curBook) || {n:bk.n,c:bk.c.length,t:"NT"};
   if(curCh > bk.c.length) curCh = 1;
   const pv = prevPlace(), nx = nextPlace();
@@ -2096,10 +2031,7 @@ function renderBible(){
     f.addEventListener("keydown", ev=>{ if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); show(); } });
   });
 
-  document.querySelectorAll("#blist button").forEach(b=>{
-    b.classList.toggle("on", b.getAttribute("data-bk")===curBook);
-    if(b.getAttribute("data-bk")===curBook) b.setAttribute("aria-current","true"); else b.removeAttribute("aria-current");
-  });
+  markBookList();
   renderNotes(meta);
   syncHash();
   store("last", JSON.stringify({b:curBook, c:curCh}));
@@ -2158,7 +2090,7 @@ function toggleBooks(){ const n = document.getElementById("booknav"); if(n && n.
 
 /* ---------- navigation helpers: address bar, back chip, cross-references ---------- */
 let restoreY = null, pendingFrom = null, pendingCard = null;
-function bookName(a){ const m = BIBLE && BIBLE.index.find(x=>x.a===a); return m ? m.n : a; }
+function bookName(a){ return BOOKNAMES[a] || a; }
 function syncHash(){
   const want = "#/bible/"+curBook+"/"+curCh;
   if(popping || location.hash === want || current !== "bible") { return; }
@@ -2183,11 +2115,12 @@ document.addEventListener("click", e=>{
 });
 /* jump to a passage from a link in the notes */
 function openRef(b, c, v, card){
-  if(!BIBLE || !BIBLE.books[b]) return;
+  const bm = BOOKS.find(x=>x.a===b); if(!bm) return;
+  if(!BIBLE) BIBLE = {index: BOOKS, books: {}};
   saveScroll();
   pendingFrom = bookName(curBook)+" "+curCh;
   const same = (b === curBook && +c === +curCh);
-  curBook = b; curCh = Math.min(Math.max(+c,1), BIBLE.books[b].c.length);
+  curBook = b; curCh = Math.min(Math.max(+c,1), bm.c);
   if(same){
     // same chapter: no reload, just move to the verse and its card
     pendingFrom = null;
@@ -2220,9 +2153,9 @@ function showCard(v, mobileToo){
 /* turn Bible references in note text into links */
 let XRX = null, XMAP = {};
 function xrefInit(){
-  if(XRX || !BIBLE) return;
+  if(XRX) return;
   const names = [];
-  BIBLE.index.forEach(b=>{ XMAP[b.n.toLowerCase()] = b.a; names.push(b.n); });
+  BOOKS.forEach(b=>{ XMAP[b.n.toLowerCase()] = b.a; names.push(b.n); });
   const alias = {"Psalm":"PSA", "Song of Solomon":"SNG", "1 kings":"1KI"};
   Object.keys(alias).forEach(k=>{ XMAP[k.toLowerCase()] = alias[k]; names.push(k); });
   names.sort((x,y)=>y.length-x.length);
@@ -2233,8 +2166,8 @@ function xrefInit(){
     "|(^|[^\\w:.\\/&;])(\\d{1,3}):(\\d{1,3})(?:"+RG+")?(?![\\d:])", "g");
 }
 function xa(a, c, v, label){
-  const bk = BIBLE.books[a];
-  if(!bk || +c < 1 || +c > bk.c.length) return label;
+  const bk = BOOKS.find(x=>x.a===a);
+  if(!bk || +c < 1 || +c > bk.c) return label;
   return '<a class="xref" href="#/bible/'+a+'/'+c+(v?'/'+v:'')+'" data-b="'+a+'" data-c="'+c+'"'+
     (v?' data-v="'+v+'"':'')+'>'+label+'</a>';
 }
@@ -2339,6 +2272,10 @@ function renderNotes(meta){
   const chn = (NOTES.chapters[curBook]||{})[curCh];
   const sec = (SECTIONS[curBook]||{})[String(curCh)];
   let html = "";
+  const st = notesStatus(curBook);
+  if(st === "progress") html += '<div class="nstat progress"><b>Notes in progress.</b> These notes are being developed and will be '+
+    'produced to the same standard as the books marked complete. <a href="#/notes" data-go="notes" data-anchor="about-made">About the notes</a></div>';
+  if(st === "brief") html += '<div class="nstat brief"><b>Brief notes for now.</b> Fuller notes on '+meta.n+' are still to come.</div>';
 
   if(intro){
     html += '<details class="bintro"'+(sec?'':' open')+'><summary>About '+meta.n+'</summary>'+
@@ -2493,7 +2430,6 @@ function wirePdfCards(){
 }
 
 /* ---------- questions and topics ---------- */
-const INLINE_GUIDES = null;
 let GUIDES = null, guidesLoading = false;
 
 function openPassage(bk, ch, v){
@@ -2503,29 +2439,27 @@ function openPassage(bk, ch, v){
 }
 
 async function initGuides(which){
-  if(!GUIDES && !guidesLoading){
-    guidesLoading = true;
-    try{
-      GUIDES = INLINE_GUIDES || await fetch("assets/guides.json").then(r=>r.json());
-    }catch(e){
+  if(!GUIDES){
+    if(!guidesLoading) guidesLoading = getJSON("assets/guides.json");
+    try{ GUIDES = await guidesLoading; }
+    catch(e){
+      guidesLoading = false;
       const t = document.getElementById(which === "questions" ? "qlist" : "tlist");
-      if(t) t.innerHTML = '<div class="gload">This section could not be loaded.</div>';
-      guidesLoading = false; return;
+      if(t) t.innerHTML = '<div class="gload">This page could not be loaded. Please check your connection and try again.</div>';
+      return;
     }
-    guidesLoading = false;
   }
-  if(!GUIDES) return;
   if(which === "questions") renderQuestions(); else renderTopics();
 }
 
 function renderQuestions(){
   const el = document.getElementById("qlist");
   if(!el || el.dataset.done) return;
-  el.innerHTML = GUIDES.questions.map(function(q){
-    return '<details class="qitem"><summary>'+q.q+'</summary><div class="qa-body">'+
+  el.innerHTML = GUIDES.questions.map(function(q, i){
+    return '<details class="qitem" id="q-'+i+'"><summary>'+q.q+'</summary><div class="qa-body">'+
       '<div class="qref">'+q.n+' '+q.r+' &middot; '+q.h+'</div>'+
       '<p>'+q.t+'</p>'+
-      '<button class="qgo" data-b="'+q.b+'" data-c="'+q.c+'">Read '+q.n+' '+q.c+' &rarr;</button>'+
+      '<button type="button" class="qgo" data-b="'+q.b+'" data-c="'+q.c+'">Read '+q.n+' '+q.c+' &rarr;</button>'+
       '</div></details>';
   }).join("");
   el.querySelectorAll(".qgo").forEach(function(btn){
@@ -2539,14 +2473,14 @@ function renderTopics(){
   if(!el || el.dataset.done) return;
   el.innerHTML = Object.keys(GUIDES.topics).map(function(name){
     const items = GUIDES.topics[name].map(function(i){
-      return '<li data-b="'+i.b+'" data-c="'+i.c+'">'+
+      return '<li><button type="button" data-b="'+i.b+'" data-c="'+i.c+'" data-v="'+i.v+'">'+
         '<span class="tr">'+i.n+' '+i.c+':'+i.v+'</span>'+
-        '<span class="th">'+(i.g || i.h)+'</span></li>';
+        '<span class="th">'+(i.g || i.h)+'</span></button></li>';
     }).join("");
-    return '<div class="tcard"><h3>'+name+'</h3><ul>'+items+'</ul></div>';
+    return '<div class="tcard" data-topic="'+name.replace(/"/g,'')+'"><h3>'+name+'</h3><ul>'+items+'</ul></div>';
   }).join("");
-  el.querySelectorAll("li[data-b]").forEach(function(li){
-    li.addEventListener("click", function(){ openPassage(li.dataset.b, li.dataset.c); });
+  el.querySelectorAll("button[data-b]").forEach(function(li){
+    li.addEventListener("click", function(){ saveScroll(); pendingCard = li.dataset.v; openPassage(li.dataset.b, li.dataset.c, li.dataset.v); });
   });
   el.dataset.done = "1";
 }
@@ -2661,11 +2595,394 @@ function paintReport(){
 }
 
 
-/* ---------- search (filled in below) ---------- */
-function initSearch(){ const q = document.getElementById("gq"); if(q && !q.value && searchFromHash) q.value = searchFromHash; }
-function runSearch(q){}
-function paintSaveAll(){}
+/* ---------- search ----------
+   One search across the Bible text, the note headings and big ideas, the short
+   chapter notes, questions, topics, key words and guides. A reference
+   (John 3:16, jn 3, 1 cor 13:4-7, ps 23) goes straight to the passage. */
+let SEARCH = null, searchLoading = null, VERSES_ALL = null, versesLoading = null;
+let searchTimer = null, lastQuery = "", searchFilter = "all", searchMore = {};
+
+function searchFor(q){ searchFromHash = q; go("search"); const i = document.getElementById("gq"); if(i) i.value = q; runSearch(q); }
+
+function initSearch(){
+  const f = document.getElementById("gsrch"), i = document.getElementById("gq");
+  if(f && !f.dataset.wired){
+    f.dataset.wired = "1";
+    f.addEventListener("submit", e=>{ e.preventDefault(); clearTimeout(searchTimer);
+      const q = i.value.trim(); const top = document.querySelector("#gres .sgo");
+      if(top && parseRef(q)){ top.click(); return; }
+      runSearch(q); });
+    i.addEventListener("input", ()=>{ clearTimeout(searchTimer); searchTimer = setTimeout(()=>runSearch(i.value), 260); });
+  }
+  if(searchFromHash && !i.value) i.value = searchFromHash;
+  setTimeout(()=>{ if(current === "search" && !i.value) i.focus({preventScroll:true}); }, 60);
+  loadSearch();
+  if(!i.value) paintSearchHelp();
+}
+
+function loadSearch(){
+  if(SEARCH) return Promise.resolve(SEARCH);
+  if(searchLoading) return searchLoading;
+  searchLoading = Promise.all([
+    getJSON("assets/notes/search.json").catch(()=>({h:[], b:[]})),
+    GUIDES ? Promise.resolve(GUIDES) : getJSON("assets/guides.json").then(g=>{ GUIDES = g; return g; }).catch(()=>({questions:[], topics:{}})),
+    Object.keys(GLOSSARY).length ? Promise.resolve(GLOSSARY) : getJSON("assets/glossary.json").then(g=>{ GLOSSARY = g; return g; }).catch(()=>({})),
+    loadNoteIndex()
+  ]).then(([nt, gd, gl])=>{
+    SEARCH = {notes: nt.h || [], brief: nt.b || [], guides: gd, glossary: gl};
+    return SEARCH;
+  });
+  return searchLoading;
+}
+function loadVerses(){
+  if(VERSES_ALL) return Promise.resolve(VERSES_ALL);
+  if(versesLoading) return versesLoading;
+  versesLoading = fetch("assets/bsb.gz").then(r=>{ if(!r.ok) throw new Error("bsb.gz "+r.status); return r.arrayBuffer(); })
+    .then(buf=>new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"))).text())
+    .then(txt=>{
+      const all = JSON.parse(txt), out = [];
+      all.index.forEach(meta=>{
+        all.books[meta.a].c.forEach((ch, ci)=>{
+          let cur = null, buf = "";
+          const flush = ()=>{ if(cur !== null && buf.trim()){ const t = buf.trim(); out.push({a:meta.a, c:ci+1, v:cur, t:t, n:norm(t)}); } };
+          ch.b.forEach(blk=>{
+            if(blk.k === "s" || blk.k === "r" || blk.k === "b") return;
+            blk.c.forEach(it=>{ if(typeof it === "string") buf += " " + stripNotes(it); else if(it.v){ flush(); cur = it.v; buf = ""; } });
+          });
+          flush();
+        });
+      });
+      VERSES_ALL = out; return out;
+    })
+    .catch(err=>{ versesLoading = null; throw err; });
+  return versesLoading;
+}
+
+/* ---- matching helpers ---- */
+const STOP = new Set("a an and are as at be but by for from has have he her his i in into is it its me my not of on or our she so that the their them they this to us was we were what when where which who why will with you your".split(" "));
+function norm(t){
+  return String(t||"").toLowerCase().replace(/&[a-z]+;/g," ").replace(/<[^>]+>/g," ")
+    .replace(/[‘’ʼ']/g,"").replace(/[–—-]/g," ").replace(/[^a-z0-9À-ɏ\s]/g," ").replace(/\s+/g," ").trim();
+}
+function plainText(t){ const d = document.createElement("div"); d.innerHTML = String(t||""); return d.textContent; }
+function makeQuery(q){
+  const raw = q.trim(), phrase = /^".+"$/.test(raw);
+  const n = norm(raw);
+  let words = n.split(" ").filter(Boolean);
+  const content = words.filter(w=>!STOP.has(w));
+  if(!phrase && content.length) words = content;
+  const rx = words.map(w=>new RegExp("(^|\\s)"+w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")));
+  return {raw:raw, n:n, phrase: phrase || !content.length, words:words, rx:rx};
+}
+function matchScore(Q, text, weight, isNorm){
+  if(!text) return 0;
+  const t = isNorm ? text : norm(text);
+  if(!t) return 0;
+  if(Q.phrase) return t.indexOf(Q.n) !== -1 ? weight * 3 : 0;
+  let hit = 0;
+  for(const r of Q.rx){ if(!r.test(t)) return 0; hit++; }
+  return weight * (t.indexOf(Q.n) !== -1 ? 3 : 1) * (hit ? 1 : 0);
+}
+function hl(text, Q, max){
+  let t = plainText(text);
+  if(max && t.length > max){
+    const first = Q.words.length ? t.toLowerCase().indexOf(Q.words[0]) : -1;
+    const start = first > max/2 ? Math.max(0, first - Math.floor(max/3)) : 0;
+    t = (start ? "…" : "") + t.slice(start, start + max).replace(/\s\S*$/,"") + "…";
+  }
+  t = esc2(t);
+  const terms = Q.phrase ? [Q.raw.replace(/^"|"$/g,"")] : Q.words;
+  terms.filter(w=>w.length > 1).forEach(w=>{
+    t = t.replace(new RegExp("(^|[^A-Za-z])("+w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"[A-Za-z]*)","ig"), "$1<mark>$2</mark>");
+  });
+  return t;
+}
+
+/* ---- references: "John 3:16", "jn 3", "1 cor 13:4-7", "ps 23", "Song of Songs 2", "first john 1" ---- */
+const BOOK_ALIASES = {
+  gen:"GEN",ge:"GEN",gn:"GEN",ex:"EXO",exod:"EXO",exo:"EXO",lev:"LEV",lv:"LEV",num:"NUM",nu:"NUM",nm:"NUM",deut:"DEU",dt:"DEU",deu:"DEU",
+  josh:"JOS",jos:"JOS",judg:"JDG",jdg:"JDG",jg:"JDG",ru:"RUT",rut:"RUT","1sam":"1SA","1sa":"1SA","1s":"1SA","2sam":"2SA","2sa":"2SA","2s":"2SA",
+  "1kgs":"1KI","1ki":"1KI","1kings":"1KI","2kgs":"2KI","2ki":"2KI","2kings":"2KI","1chr":"1CH","1chron":"1CH","1ch":"1CH","2chr":"2CH","2chron":"2CH","2ch":"2CH",
+  ezr:"EZR",neh:"NEH",ne:"NEH",esth:"EST",est:"EST",jb:"JOB",ps:"PSA",psa:"PSA",psalm:"PSA",pss:"PSA",psalms:"PSA",prov:"PRO",pro:"PRO",pr:"PRO",prv:"PRO",
+  eccl:"ECC",ecc:"ECC",eccles:"ECC",qoh:"ECC",song:"SNG",sng:"SNG",sos:"SNG",songofsongs:"SNG",songofsolomon:"SNG",canticles:"SNG",
+  isa:"ISA",is:"ISA",jer:"JER",je:"JER",lam:"LAM",ezek:"EZK",eze:"EZK",ezk:"EZK",dan:"DAN",dn:"DAN",da:"DAN",hos:"HOS",ho:"HOS",joel:"JOL",jl:"JOL",jol:"JOL",
+  am:"AMO",amo:"AMO",obad:"OBA",ob:"OBA",oba:"OBA",jon:"JON",jnh:"JON",mic:"MIC",mi:"MIC",nah:"NAM",na:"NAM",nam:"NAM",hab:"HAB",zeph:"ZEP",zep:"ZEP",
+  hag:"HAG",zech:"ZEC",zec:"ZEC",mal:"MAL",matt:"MAT",mt:"MAT",mat:"MAT",mk:"MRK",mrk:"MRK",mar:"MRK",lk:"LUK",luk:"LUK",jn:"JHN",jhn:"JHN",joh:"JHN",
+  ac:"ACT",act:"ACT",rom:"ROM",ro:"ROM",rm:"ROM","1cor":"1CO","1co":"1CO","2cor":"2CO","2co":"2CO",gal:"GAL",ga:"GAL",eph:"EPH",phil:"PHP",php:"PHP",pp:"PHP",
+  col:"COL","1thess":"1TH","1th":"1TH","2thess":"2TH","2th":"2TH","1tim":"1TI","1ti":"1TI","2tim":"2TI","2ti":"2TI",tit:"TIT",philem:"PHM",phm:"PHM",phlm:"PHM",
+  heb:"HEB",jas:"JAS",jm:"JAS","1pet":"1PE","1pe":"1PE","1pt":"1PE","2pet":"2PE","2pe":"2PE","2pt":"2PE","1jn":"1JN","1jo":"1JN","1john":"1JN","2jn":"2JN","2john":"2JN",
+  "3jn":"3JN","3john":"3JN",jud:"JUD",jude:"JUD",rev:"REV",re:"REV",rv:"REV",revelations:"REV"
+};
+function findBook(raw){
+  let k = raw.toLowerCase().replace(/\./g,"").replace(/\s+/g," ").trim()
+    .replace(/^(first|1st|i)\s+/,"1").replace(/^(second|2nd|ii)\s+/,"2").replace(/^(third|3rd|iii)\s+/,"3").replace(/\s/g,"");
+  if(k.length < 2) return null;
+  if(BOOK_ALIASES[k]) return BOOK_ALIASES[k];
+  const full = BOOKS.find(b=>b.n.toLowerCase().replace(/\s/g,"") === k || b.a.toLowerCase() === k);
+  if(full) return full.a;
+  if(k.length < 3 && !/^\d/.test(k)) return null;
+  const pre = BOOKS.find(b=>b.n.toLowerCase().replace(/\s/g,"").startsWith(k));
+  return pre ? pre.a : null;
+}
+function parseRef(q){
+  const m = String(q||"").trim().match(/^((?:[1-3]|i{1,3}|first|second|third|1st|2nd|3rd)?\s*[A-Za-z][A-Za-z.\s]*?)\s*(\d{1,3})?(?:\s*[:.\s]\s*(\d{1,3})(?:\s*[-–]\s*(\d{1,3}))?)?\s*$/i);
+  if(!m) return null;
+  const a = findBook(m[1]); if(!a) return null;
+  const meta = BOOKS.find(b=>b.a===a);
+  const c = m[2] ? Math.min(Math.max(parseInt(m[2],10),1), meta.c) : null;
+  return {a:a, n:meta.n, c:c, v:(c && m[3]) ? m[3] : null, v2:(c && m[4]) ? m[4] : null};
+}
+
+/* ---- the search itself ---- */
+function runSearch(q){
+  q = (q||"").trim();
+  lastQuery = q; searchMore = {};
+  const want = "#/search" + (q ? "/" + encodeURIComponent(q) : "");
+  if(current === "search" && location.hash !== want) history.replaceState({v:"search"}, "", want);
+  setTitle(q ? "Search: " + q : "Search");
+  if(!q){ paintSearchHelp(); return; }
+  const box = document.getElementById("gres");
+  if(!SEARCH) box.innerHTML = '<p class="gload">Searching&hellip;</p>';
+  loadSearch().then(()=>{ if(q === lastQuery) paintSearch(q); });
+}
+
+function paintSearchHelp(){
+  const box = document.getElementById("gres"); if(!box) return;
+  box.innerHTML = '<div class="shelpbox"><h2>Try</h2><ul class="stry">'+
+    ['John 3:16','Romans 8','forgiveness','"born again"','Trinity','suffering','Lord&rsquo;s Supper','prayer']
+      .map(t=>'<li><button type="button" class="chip" data-try="'+t.replace(/"/g,'&quot;')+'">'+t+'</button></li>').join("")+
+    '</ul><p>Type a word or phrase, or a reference. Put words in quotation marks to find that exact phrase. '+
+    'Book names can be shortened: <i>jn 3</i>, <i>1 cor 13</i>, <i>ps 23</i>.</p></div>';
+}
+document.addEventListener("click", e=>{
+  const t = e.target.closest("[data-try]"); if(!t) return;
+  const i = document.getElementById("gq"); i.value = plainText(t.getAttribute("data-try")); runSearch(i.value);
+});
+
+function paintSearch(q){
+  const box = document.getElementById("gres"); if(!box) return;
+  const Q = makeQuery(q);
+  const groups = [];
+  /* 1. a reference */
+  const ref = parseRef(q);
+  let refHTML = "";
+  if(ref){
+    const label = ref.n + (ref.c ? " " + ref.c + (ref.v ? ":" + ref.v + (ref.v2 ? "–" + ref.v2 : "") : "") : "");
+    const st = notesStatus(ref.a);
+    refHTML = '<button type="button" class="sgo" data-gb="'+ref.a+'" data-gc="'+(ref.c||1)+'" data-gv="'+(ref.v||"")+'">'+
+      '<span class="sgo-k">Go to</span><span class="sgo-t">'+label+'</span>'+
+      (st && !ref.c ? '<span class="sgo-s">'+STATUS_TEXT[st]+'</span>' : '')+
+      '<span class="sgo-p" id="sgoprev"></span></button>';
+    if(ref.c && ref.v){
+      if(!BIBLE) BIBLE = {index: BOOKS, books: {}};
+      ensureBook(ref.a).then(()=>{
+        const el = document.getElementById("sgoprev"); if(!el || lastQuery !== q) return;
+        const ch = BIBLE.books[ref.a].c[ref.c-1]; if(!ch) return;
+        const v1 = +ref.v, v2 = +(ref.v2 || ref.v); let out = "", cur = null;
+        ch.b.forEach(blk=>{ if(blk.k==="s"||blk.k==="r"||blk.k==="b") return;
+          blk.c.forEach(it=>{ if(typeof it === "string"){ if(cur>=v1 && cur<=v2) out += " " + stripNotes(it); } else if(it.v) cur = +it.v; }); });
+        el.textContent = out.trim().slice(0, 320) + (out.length > 320 ? "…" : "");
+      }).catch(()=>{});
+    }
+  }
+  if(Q.words.length || Q.phrase){
+    /* 2. note headings and big ideas */
+    const notes = [];
+    SEARCH.notes.forEach(r=>{
+      const s = matchScore(Q, r[3], 5) + matchScore(Q, r[4], 2);
+      if(s) notes.push({s:s, html:'<button type="button" class="sitem" data-gb="'+r[0]+'" data-gc="'+r[1]+'" data-gv="'+r[2]+'" data-card="1">'+
+        '<span class="sr">'+BOOKNAMES[r[0]]+' '+r[1]+':'+r[2]+'</span><b>'+hl(r[3], Q)+'</b>'+(r[4] ? '<span class="sx">'+hl(r[4], Q, 200)+'</span>' : '')+'</button>'});
+    });
+    SEARCH.brief.forEach(r=>{
+      const s = matchScore(Q, r[3], 4) + matchScore(Q, r[4], 1);
+      if(s) notes.push({s:s*0.8, html:'<button type="button" class="sitem" data-gb="'+r[0]+'" data-gc="'+r[1]+'" data-gv="">'+
+        '<span class="sr">'+BOOKNAMES[r[0]]+' '+r[1]+(r[2] ? ' &middot; '+esc2(String(r[2])) : '')+'</span><b>'+hl(r[3], Q)+'</b>'+
+        '<span class="sx">'+hl(r[4], Q, 160)+'</span></button>'});
+    });
+    groups.push(["notes", "Study notes", notes]);
+    /* 3. questions */
+    const qs = [];
+    (SEARCH.guides.questions||[]).forEach((x,i)=>{
+      const s = matchScore(Q, x.q, 6) + matchScore(Q, x.h, 3) + matchScore(Q, x.t, 1);
+      if(s) qs.push({s:s, html:'<button type="button" class="sitem" data-gq="'+i+'"><span class="sr">'+x.n+' '+x.r+'</span><b>'+hl(x.q, Q)+'</b>'+
+        '<span class="sx">'+hl(x.t, Q, 180)+'</span></button>'});
+    });
+    groups.push(["questions", "Questions", qs]);
+    /* 4. topics */
+    const ts = [];
+    Object.keys(SEARCH.guides.topics||{}).forEach(name=>{
+      const s = matchScore(Q, name, 6);
+      if(s) ts.push({s:s, html:'<button type="button" class="sitem" data-gt="'+esc2(name)+'"><span class="sr">Topic</span><b>'+hl(name, Q)+'</b>'+
+        '<span class="sx">'+SEARCH.guides.topics[name].length+' passages</span></button>'});
+      SEARCH.guides.topics[name].forEach(it=>{
+        const s2 = matchScore(Q, it.g || it.h, 2);
+        if(s2) ts.push({s:s2, html:'<button type="button" class="sitem" data-gb="'+it.b+'" data-gc="'+it.c+'" data-gv="'+it.v+'" data-card="1">'+
+          '<span class="sr">'+esc2(name)+' &middot; '+it.n+' '+it.c+':'+it.v+'</span><span class="sx">'+hl(it.g || it.h, Q)+'</span></button>'});
+      });
+    });
+    groups.push(["topics", "Topics", ts]);
+    /* 5. key words */
+    const ks = [];
+    Object.keys(SEARCH.glossary||{}).forEach(k=>{
+      const g = SEARCH.glossary[k];
+      const s = matchScore(Q, g.w, 8) + matchScore(Q, g.d, 1);
+      if(s) ks.push({s:s, html:'<details class="sitem sdef"><summary><span class="sr">Key word</span><b>'+hl(g.w, Q)+'</b>'+
+        '<span class="sx">'+hl(g.d, Q, 150)+'</span></summary><div class="kwp">'+termPanel(k)+'</div></details>'});
+    });
+    groups.push(["words", "Key words", ks]);
+    /* 6. guides */
+    const gs = [];
+    RESOURCES.concat(APOLOGETICS).forEach(x=>{
+      const s = matchScore(Q, x.title, 6) + matchScore(Q, x.tag, 3) + matchScore(Q, x.blurb, 1);
+      if(s) gs.push({s:s, html: x.url
+        ? '<a class="sitem" href="'+x.url+'" target="_blank" rel="noopener"><span class="sr">'+x.tag+' &middot; PDF, '+x.meta+'</span><b>'+hl(x.title, Q)+'</b><span class="sx">'+hl(x.blurb, Q, 160)+'</span></a>'
+        : '<div class="sitem soon"><span class="sr">'+x.tag+' &middot; planned</span><b>'+hl(x.title, Q)+'</b><span class="sx">'+hl(x.blurb, Q, 160)+'</span></div>'});
+    });
+    groups.push(["guides", "Guides", gs]);
+  }
+  groups.forEach(g=>g[2].sort((x,y)=>y.s-x.s));
+  /* 7. the Bible text (loaded the first time it is needed) */
+  const verseGroup = ["bible", "Bible text", null];
+  groups.push(verseGroup);
+  paintSearchGroups(box, q, refHTML, groups);
+  if(Q.words.length || Q.phrase){
+    loadVerses().then(vs=>{
+      if(lastQuery !== q) return;
+      const hits = [];
+      for(const v of vs){
+        const s = matchScore(Q, v.n, 1, true);
+        if(s){ hits.push({s:s, html:'<button type="button" class="sitem verse" data-gb="'+v.a+'" data-gc="'+v.c+'" data-gv="'+v.v+'">'+
+          '<span class="sr">'+BOOKNAMES[v.a]+' '+v.c+':'+v.v+'</span><span class="sx">'+hl(v.t, Q, 260)+'</span></button>'}); }
+      }
+      hits.sort((x,y)=>y.s-x.s);
+      verseGroup[2] = hits;
+      paintSearchGroups(box, q, refHTML, groups);
+    }).catch(()=>{ verseGroup[2] = "error"; paintSearchGroups(box, q, refHTML, groups); });
+  }
+}
+
+const SHOW = {notes:6, questions:4, topics:5, words:4, guides:4, bible:12};
+function paintSearchGroups(box, q, refHTML, groups){
+  const counts = groups.map(g=>Array.isArray(g[2]) ? g[2].length : 0);
+  const total = counts.reduce((a,b)=>a+b,0);
+  const versePending = groups.some(g=>g[0]==="bible" && g[2] === null);
+  let html = refHTML;
+  html += '<div class="sfilters" role="group" aria-label="Show results from">'+
+    '<button type="button" class="chip'+(searchFilter==="all"?' on':'')+'" data-sf="all" aria-pressed="'+(searchFilter==="all")+'">All'+(versePending?'':' '+total)+'</button>'+
+    groups.map((g,i)=> counts[i] || (g[0]==="bible" && versePending) ? '<button type="button" class="chip'+(searchFilter===g[0]?' on':'')+'" data-sf="'+g[0]+'" aria-pressed="'+(searchFilter===g[0])+'">'+g[1]+' '+(g[2]===null?'&hellip;':counts[i])+'</button>' : '').join("")+
+    '</div>';
+  let any = !!refHTML;
+  groups.forEach((g,i)=>{
+    if(searchFilter !== "all" && searchFilter !== g[0]) return;
+    if(g[2] === null){ html += '<section class="sgroup"><h2>'+g[1]+'</h2><p class="gload">Searching the whole Bible&hellip;</p></section>'; return; }
+    if(g[2] === "error"){ html += '<section class="sgroup"><h2>'+g[1]+'</h2><p class="gload">The Bible text could not be searched just now'+
+      (navigator.onLine === false ? ' (you seem to be offline; it can be searched offline once it has been searched once online)' : '')+'.</p></section>'; return; }
+    if(!g[2].length) return;
+    any = true;
+    const lim = searchFilter === g[0] ? (searchMore[g[0]] || 60) : (searchMore[g[0]] || SHOW[g[0]]);
+    html += '<section class="sgroup"><h2>'+g[1]+' <span>'+g[2].length+(g[0]==="bible"?' verse'+(g[2].length===1?'':'s'):'')+'</span></h2>'+
+      g[2].slice(0, lim).map(x=>x.html).join("")+
+      (g[2].length > lim ? '<button type="button" class="smore" data-more="'+g[0]+'">Show '+(searchFilter===g[0] ? 'more' : 'all '+g[2].length)+'</button>' : '')+
+      '</section>';
+  });
+  if(!any && !versePending) html += '<div class="shelpbox"><p>Nothing found for &ldquo;'+esc2(q)+'&rdquo;. Try fewer words, a different spelling, '+
+    'or a reference such as <i>Romans 8:28</i>.</p></div>';
+  box.innerHTML = html;
+}
+document.addEventListener("click", e=>{
+  const f = e.target.closest("[data-sf]");
+  if(f){ searchFilter = f.getAttribute("data-sf"); paintSearch(lastQuery); return; }
+  const m = e.target.closest("[data-more]");
+  if(m){ const k = m.getAttribute("data-more"); searchMore[k] = (searchMore[k] || (searchFilter===k ? 60 : SHOW[k])) + (searchFilter===k ? 100 : 1000);
+    if(searchFilter !== k){ searchFilter = k; } paintSearch(lastQuery); return; }
+  const b = e.target.closest("#gres [data-gb]");
+  if(b){ saveScroll(); const v = b.getAttribute("data-gv") || null;
+    if(b.hasAttribute("data-card") || (!v && b.classList.contains("sitem"))) pendingCard = v || "1";
+    openPassage(b.getAttribute("data-gb"), b.getAttribute("data-gc"), v); return; }
+  const qq = e.target.closest("#gres [data-gq]");
+  if(qq){ openQuestion(+qq.getAttribute("data-gq")); return; }
+  const tt = e.target.closest("#gres [data-gt]");
+  if(tt){ openTopic(plainText(tt.getAttribute("data-gt"))); return; }
+});
+function openQuestion(i){
+  go("questions");
+  initGuides("questions").then(()=>{ const d = document.getElementById("q-"+i); if(d){ d.open = true; d.scrollIntoView({behavior:"smooth", block:"start"}); } });
+}
+function openTopic(name){
+  go("topics");
+  initGuides("topics").then(()=>{ const d = document.querySelector('.tcard[data-topic="'+name.replace(/"/g,'')+'"]');
+    if(d){ d.scrollIntoView({behavior:"smooth", block:"start"}); d.classList.add("flash"); setTimeout(()=>d.classList.remove("flash"),1400); } });
+}
+/* ---------- saving books for offline use ----------
+   Books you open are kept on the device automatically. "Save every book" fetches
+   the rest (the worker in sw.js keeps them in the ankyra-data cache). */
+let saving = false;
+function bookFiles(a){ return ["assets/bible/"+a+".json", "assets/notes/"+a+".json"]; }
+async function savedCount(){
+  if(!("caches" in window)) return null;
+  try{
+    const c = await caches.open("ankyra-data");
+    const keys = new Set((await c.keys()).map(r=>new URL(r.url).pathname.replace(/^.*\/assets\//,"assets/")));
+    return BOOKS.filter(b=>keys.has("assets/bible/"+b.a+".json") && keys.has("assets/notes/"+b.a+".json")).length;
+  }catch(e){ return null; }
+}
+async function paintSaveAll(){
+  const box = document.getElementById("keepsave"); if(!box) return;
+  if(!("serviceWorker" in navigator) || !navigator.serviceWorker.controller){
+    box.innerHTML = '<p>Saving books for offline use needs the site to have finished setting up on this device. Open it again in a moment.</p>';
+    return;
+  }
+  const n = await savedCount();
+  if(saving) return;
+  box.innerHTML = '<p>'+(n === BOOKS.length ? 'Every book is saved on this device, with its notes, so you can read without a signal.'
+      : (n ? n+' of 66 books are saved on this device. ' : '')+'Save every book of the Bible and its notes, so you can read anywhere without a signal (about 10 MB on the device; about 4 MB to download).')+'</p>'+
+    (n === BOOKS.length ? '<button type="button" id="saveall">Refresh saved books</button>' : '<button type="button" id="saveall">Save every book</button>')+
+    '<div class="prog" hidden><i></i></div><p class="savemsg" aria-live="polite"></p>';
+  document.getElementById("saveall").onclick = ()=>saveAll(false);
+}
+async function saveAll(quiet){
+  if(saving) return; saving = true;
+  const box = document.getElementById("keepsave");
+  const prog = box && box.querySelector(".prog"), bar = prog && prog.querySelector("i"), msg = box && box.querySelector(".savemsg");
+  const btn = document.getElementById("saveall");
+  if(!quiet && prog){ prog.hidden = false; if(btn) btn.disabled = true; }
+  const files = [];
+  BOOKS.forEach(b=>files.push(...bookFiles(b.a)));
+  files.push("assets/bsb.gz", "assets/notes/search.json", "assets/notes/index.json", "assets/guides.json", "assets/glossary.json");
+  let done = 0, failed = 0;
+  const next = async ()=>{
+    while(files.length){
+      const f = files.shift();
+      try{ const r = await fetch(f); if(!r.ok) failed++; else await r.arrayBuffer(); }catch(e){ failed++; }
+      done++;
+      if(!quiet && bar) bar.style.width = Math.round(done / (done + files.length) * 100) + "%";
+    }
+  };
+  await Promise.all([next(), next(), next()]);
+  saving = false;
+  if(!failed){ try{ const c = await caches.open("ankyra-data"); await c.delete("./__ankyra/resave-books"); }catch(e){} }
+  if(!quiet && msg){
+    msg.textContent = failed ? "Some books could not be saved. Check your connection and try again." : "Done. Every book is saved on this device.";
+    if(btn) btn.disabled = false;
+    if(!failed) setTimeout(paintSaveAll, 1500);
+  }
+}
 function onSaveProgress(d){}
+
+/* People who used the site before it became Ankyra: one note, once; and if they had the
+   whole Bible saved offline on the old site, save every book again quietly. */
+async function checkOldSite(){
+  if(!("caches" in window)) return;
+  try{
+    const ks = await caches.keys();
+    const oldCache = ks.some(k=>k.indexOf("cob-") === 0);
+    const from = await caches.match("./__ankyra/from-old-site");
+    if((oldCache || from) && store("hello") === null){ store("hello", "due"); maybeHello(); }
+    if(from){ const c = await caches.open("ankyra-data"); await c.delete("./__ankyra/from-old-site"); }
+    const resave = await caches.match("./__ankyra/resave-books");
+    if(resave && navigator.onLine !== false) saveAll(true);
+  }catch(e){}
+}
 
 /* ---------- offline support and updates ----------
    The page checks for a new version when it opens and whenever it comes back
@@ -2687,7 +3004,7 @@ if("serviceWorker" in navigator && (location.protocol === "https:" || location.h
       if(ev.source && ev.source.postMessage) ev.source.postMessage({type:"ankyra-ack", version: APP_VERSION});
       if(HAD_CONTROLLER && d.version && d.version !== APP_VERSION) showUpdated();
     }
-    if(d.type === "ankyra-saved") onSaveProgress(d);
+    if(d.type === "ankyra-activated") setTimeout(checkOldSite, 300);
   });
   window.addEventListener("load", function(){
     navigator.serviceWorker.register("sw.js", {updateViaCache: "none"}).then(function(reg){
@@ -2699,6 +3016,31 @@ if("serviceWorker" in navigator && (location.protocol === "https:" || location.h
     if(document.visibilityState === "visible" && swReg && swReg.update) swReg.update().catch(function(){});
   });
 }
+
+/* "where the notes stand" on the home page, from assets/notes/index.json */
+function paintNotesNow(){
+  if(!NOTE_INDEX || !NOTE_INDEX.status) return;
+  const st = NOTE_INDEX.status, done = BOOKS.filter(b=>st[b.a]==="complete").map(b=>b.n);
+  const prog = BOOKS.filter(b=>st[b.a]==="progress").length;
+  const words = ["no","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve"];
+  const list = done.length > 1 ? done.slice(0,-1).join(", ") + " and " + done[done.length-1] : (done[0] || "");
+  document.querySelectorAll('[data-ns="complete"]').forEach(e=>{ if(list) e.textContent = list; });
+  document.querySelectorAll('[data-ns="progress"]').forEach(e=>{ e.textContent = prog < words.length ? words[prog] : String(prog); });
+  const lead = document.querySelector('[data-ns="complete"]');
+  if(lead && done.length === 1) lead.nextSibling.textContent = lead.nextSibling.textContent.replace(/^ have/," has");
+}
+
+/* the bar along the bottom on phones steps out of the way while you read down a chapter */
+(function(){
+  let lastY = 0;
+  window.addEventListener("scroll", ()=>{
+    const y = window.scrollY, bar = document.getElementById("tabbar"); if(!bar) return;
+    const hide = current === "bible" && y > lastY + 4 && y > 300;
+    if(hide) document.body.classList.add("barhidden");
+    else if(y < lastY - 4 || y < 300) document.body.classList.remove("barhidden");
+    lastY = y;
+  }, {passive:true});
+})();
 
 /* ---------- boot ---------- */
 function boot(){
@@ -2715,6 +3057,8 @@ function boot(){
   go(v, an);
   if(v === "search" && searchFromHash) runSearch(searchFromHash);
   maybeHello();
+  checkOldSite();
+  loadNoteIndex().then(paintNotesNow);
 }
 if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
 else boot();
