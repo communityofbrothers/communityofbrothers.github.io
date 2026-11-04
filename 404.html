@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ankyra has moved</title>
+<meta name="description" content="Ankyra, the Bible with study notes, has moved to https://ankyra.uk/">
+<link rel="canonical" href="https://ankyra.uk/">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#0E1B31">
+<link rel="icon" href="/favicon.ico">
+<noscript><meta http-equiv="refresh" content="0; url=https://ankyra.uk/"></noscript>
+<style>
+  :root{--navy:#0E1B31;--gold:#C2A24E;--gold-lt:#E0C063}
+  html,body{margin:0;background:var(--navy);color:#E8EBF1;font-family:Georgia,'Times New Roman',serif}
+  main{max-width:34em;margin:0 auto;padding:calc(48px + env(safe-area-inset-top,0px)) 20px 48px;text-align:center}
+  img{width:120px;height:120px}
+  h1{font-weight:600;font-size:1.7rem;margin:18px 0 12px;color:#fff;letter-spacing:.02em}
+  p{font-size:1.08rem;line-height:1.6;color:#C9D1DE;margin:0 0 16px}
+  b{color:#fff}
+  a.go{display:inline-block;margin:8px 0 22px;background:var(--gold-lt);color:var(--navy);text-decoration:none;
+    font-family:-apple-system,'Segoe UI',sans-serif;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;
+    font-weight:600;padding:14px 26px}
+  a.go:focus-visible{outline:2px solid #fff;outline-offset:3px}
+  .small{font-size:.95rem;color:#A9B4C6}
+</style>
+</head>
+<body>
+<main>
+  <img src="https://ankyra.uk/assets/img/ankyra-seal.webp" width="120" height="120" alt="">
+  <h1>Ankyra has moved</h1>
+  <p>Ankyra, the Bible with study notes, now lives at <b>ankyra.uk</b>.</p>
+  <a class="go" id="go" href="https://ankyra.uk/">Go to Ankyra</a>
+  <p class="small">Your place in the Bible comes with you. If you added Ankyra to your home screen, remove the old icon
+    and add it again from the new address.</p>
+</main>
+<script>
+/* The old address forwards to the new one, carrying the reader's saved settings
+   (place in the Bible, text size, notes width) in ?carry=..., and keeping the
+   page they asked for (#/bible/MAT/5 and so on, or a file such as docs/x.pdf). */
+(function(){
+  var NEW = "https://ankyra.uk/";
+  var d = {};
+  try{
+    for(var i = 0; i < localStorage.length; i++){
+      var k = localStorage.key(i);
+      if(/^(ankyra|cob)-(last|textsize|notes-width)$/.test(k)) d[k.replace(/^cob-/, "ankyra-")] = localStorage.getItem(k);
+    }
+  }catch(e){}
+  var path = location.pathname.replace(/^\/(index\.html)?/, "");
+  function go(saved){
+    if(saved) d["ankyra-resave"] = "1";
+    var url = NEW + path + (Object.keys(d).length ? "?carry=" + encodeURIComponent(JSON.stringify(d)) : "") + location.hash;
+    document.getElementById("go").href = url;
+    var standalone = (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
+    if(!standalone) location.replace(url);   // visitors from links, bookmarks and search go straight on
+  }
+  /* Tidy up this address: its saved copies of the site (only the site's own caches) and its worker. */
+  var tidy = Promise.resolve(false);
+  if(window.caches){
+    tidy = caches.keys().then(function(ks){
+      var saved = ks.some(function(k){ return k === "ankyra-data" || k.indexOf("cob-") === 0; });
+      return Promise.all(ks.filter(function(k){ return /^(cob|ankyra)-/.test(k); }).map(function(k){ return caches.delete(k); }))
+        .then(function(){ return saved; });
+    }).catch(function(){ return false; });
+  }
+  tidy.then(function(saved){
+    try{ navigator.serviceWorker.getRegistrations().then(function(rs){ rs.forEach(function(r){ r.unregister(); }); }); }catch(e){}
+    go(saved);
+  });
+})();
+</script>
+</body>
+</html>
