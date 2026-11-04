@@ -666,6 +666,8 @@ button.btn{border-radius:0}
   text-transform:uppercase;font-weight:500;padding:10px 14px}
 .updx{background:none;border:0;color:#AEB8C9;font-size:1.3rem;line-height:1;padding:4px 6px}
 .hello-mark{width:96px;height:96px;margin:0 0 10px}
+.keepgo.ghost{background:transparent;color:var(--gold-lt);border:1px solid rgba(224,192,99,.5);margin-left:8px}
+.keepgo.ghost:hover{background:var(--gold);color:var(--navy)}
 .hello-ios{font-size:.92rem !important;color:#A9B4C6 !important}
 .keepsave{margin-top:18px;padding-top:16px;border-top:1px solid rgba(224,192,99,.2)}
 .keepsave p{font-size:.92rem !important;margin:0 0 10px !important}
@@ -892,6 +894,19 @@ footer .report .ph{color:var(--gold-lt)}
   <span>Ankyra has been updated.</span>
   <button type="button" id="updgo">Reload</button>
   <button type="button" class="updx" id="updx" aria-label="Dismiss">&times;</button>
+</div>
+
+<div class="keep" id="moved" hidden>
+  <div class="keepbox" role="dialog" aria-modal="true" aria-labelledby="movedh">
+    <img class="hello-mark" src="assets/img/ankyra-seal.webp" width="110" height="110" alt="">
+    <h3 id="movedh">Ankyra has a new address</h3>
+    <p>Ankyra now lives at <b data-host>this address</b>. Your place in the Bible and your settings have come with
+      you.</p>
+    <p class="hello-ios">If you added Ankyra to your home screen, the old icon won&rsquo;t get any more updates. Remove
+      it, then add Ankyra again from here.</p>
+    <button class="keepgo" type="button" id="movedadd">How to add it</button>
+    <button class="keepgo ghost" type="button" id="movedgo">Got it</button>
+  </div>
 </div>
 
 <div class="keep" id="hello" hidden>
@@ -1493,6 +1508,24 @@ const REPORT_EMAIL = "";
    reader's place, cob-notes-width = the notes column width) is copied to its
    "ankyra-" name, then removed. FROM_OLD_SITE marks people who used the
    site before the rename, for the one-time welcome note. */
+/* ---------- arriving from the old address ----------
+   The old address (communityofbrothers.github.io) forwards here with the reader's
+   saved settings in ?carry=...: the place in the Bible, text size, notes width.
+   Copy them in (without overwriting anything already here), note the move for a
+   one-time message, and tidy the address bar. */
+(function importCarry(){
+  try{
+    const m = /[?&]carry=([^&#]*)/.exec(location.search); if(!m) return;
+    const d = JSON.parse(decodeURIComponent(m[1]) || "{}");
+    Object.keys(d).forEach(function(k){
+      if(/^ankyra-(last|textsize|notes-width|resave)$/.test(k) && typeof d[k] === "string" && localStorage.getItem(k) === null)
+        localStorage.setItem(k, d[k]);
+    });
+    if(localStorage.getItem("ankyra-moved") === null) localStorage.setItem("ankyra-moved", "due");
+    localStorage.setItem("ankyra-hello", "seen");
+  }catch(e){}
+  try{ history.replaceState(null, "", location.pathname + location.hash); }catch(e){}
+})();
 (function migrateStorage(){
   try{
     const old = [];
@@ -2615,8 +2648,22 @@ function closeKeep(){
   document.body.classList.remove("menuopen");
 }
 
+/* ---------- one-time note for people who arrive from the old address ---------- */
+function maybeMoved(){
+  if(store("moved") !== "due") return false;
+  const h = document.getElementById("moved"); if(!h) return false;
+  h.querySelectorAll("[data-host]").forEach(function(el){ el.textContent = location.host; });
+  h.hidden = false; document.body.classList.add("menuopen");
+  const done = function(){ h.hidden = true; document.body.classList.remove("menuopen"); store("moved", "seen"); };
+  document.getElementById("movedgo").onclick = done;
+  document.getElementById("movedadd").onclick = function(){ done(); openKeep(); };
+  document.getElementById("movedgo").focus({preventScroll:true});
+  return true;
+}
+
 /* ---------- one-time note for people who used the site before it became Ankyra ---------- */
 function maybeHello(){
+  if(maybeMoved()) return;
   if(store("hello") !== "due") return;
   const h = document.getElementById("hello"); if(!h) return;
   h.hidden = false; document.body.classList.add("menuopen");
@@ -3027,7 +3074,8 @@ async function checkOldSite(){
     if((oldCache || from) && store("hello") === null){ store("hello", "due"); maybeHello(); }
     if(from){ const c = await caches.open("ankyra-data"); await c.delete("./__ankyra/from-old-site"); }
     const resave = await caches.match("./__ankyra/resave-books");
-    if(resave && navigator.onLine !== false) saveAll(true);
+    if((resave || store("resave") === "1") && navigator.onLine !== false && navigator.serviceWorker && navigator.serviceWorker.controller){
+      store("resave", null); saveAll(true); }
   }catch(e){}
 }
 
