@@ -656,7 +656,8 @@ button.btn{border-radius:0}
 .updbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));
   z-index:150;display:flex;align-items:center;gap:12px;background:var(--navy-3);color:#F0F3F8;
   border:1px solid var(--gold-lt);box-shadow:0 8px 28px rgba(0,0,0,.45);padding:10px 10px 10px 16px;
-  font-family:var(--sans);font-size:.86rem;max-width:calc(100vw - 24px)}
+  font-family:var(--sans);font-size:.86rem;width:max-content;max-width:calc(100vw - 24px)}
+.updbar span{white-space:nowrap}
 .updbar[hidden]{display:none}
 .updbar button{font-family:var(--sans);cursor:pointer}
 #updgo{background:var(--gold-lt);color:var(--navy);border:0;font-size:.74rem;letter-spacing:.1em;
@@ -1563,9 +1564,10 @@ let SECTIONS = {};
 /* =====================================================================
    ADDING YOUR OWN STUDY NOTES
    ---------------------------------------------------------------------
-   The notes above are one long line of data and are not meant to be
-   edited by hand. Add new ones here instead: anything in this block is
-   merged in on top, so you never have to touch the line above.
+   The notes live in one file per book, assets/notes/BOOK.json, which
+   are not meant to be edited by hand (the kit's scripts do that). For a
+   quick addition, add it here instead: anything in this block is merged
+   in on top when the book opens.
 
    Shape of an entry:
        "BOOK": { "CHAPTER": [ {r:"3:16", h:"Short heading",
