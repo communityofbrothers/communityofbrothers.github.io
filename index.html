@@ -17,12 +17,25 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="assets/fonts/cinzel-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/ebgaramond-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+/* Start fetching the book named in the address straight away, before the page has finished loading. */
+(function(){ try{ var m = /^#\/bible\/([1-3]?[A-Za-z]{2,3})/.exec(location.hash) || [];
+  var k = m[1] ? m[1].toUpperCase() : null;
+  if(!k){ var sv = JSON.parse(localStorage.getItem("ankyra-last") || localStorage.getItem("cob-last") || "null"); if(sv && /^#\/bible\/?$/.test(location.hash)) k = sv.b; }
+  if(k && (" GEN EXO LEV NUM DEU JOS JDG RUT 1SA 2SA 1KI 2KI 1CH 2CH EZR NEH EST JOB PSA PRO ECC SNG ISA JER LAM EZK DAN HOS JOL AMO OBA JON MIC NAM HAB ZEP HAG ZEC MAL MAT MRK LUK JHN ACT ROM 1CO 2CO GAL EPH PHP COL 1TH 2TH 1TI 2TI TIT PHM HEB JAS 1PE 2PE 1JN 2JN 3JN JUD REV ").indexOf(" "+k+" ") !== -1) window.EARLY = {book: k,
+    bible: fetch("assets/bible/"+k+".json").then(function(r){ if(!r.ok) throw 0; return r.json(); }),
+    notes: fetch("assets/notes/"+k+".json").then(function(r){ return r.ok ? r.json() : {}; })};
+  if(window.EARLY){ window.EARLY.bible.catch(function(){}); window.EARLY.notes.catch(function(){}); }
+}catch(e){} })();
+</script>
 <style>
 /* Fonts, hosted here (SIL Open Font Licence: assets/fonts/OFL-*.txt) */
 @font-face{font-family:'Cinzel';font-style:normal;font-weight:400 700;font-display:swap;src:url(assets/fonts/cinzel-latin.woff2) format('woff2')}
-@font-face{font-family:'EB Garamond';font-style:normal;font-weight:400 600;font-display:swap;src:url(assets/fonts/ebgaramond-latin.woff2) format('woff2');unicode-range:U+0000-024F,U+0259,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2000-206F,U+2074,U+20AC,U+2122,U+2190-2199,U+2212,U+2215,U+25CF,U+FEFF,U+FFFD}
+@font-face{font-family:'EB Garamond';font-style:normal;font-weight:400 600;font-display:swap;src:url(assets/fonts/ebgaramond-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2190-2199,U+2212,U+2215,U+25CF,U+FEFF,U+FFFD}
+@font-face{font-family:'EB Garamond';font-style:normal;font-weight:400 600;font-display:swap;src:url(assets/fonts/ebgaramond-latinext.woff2) format('woff2');unicode-range:U+0100-0130,U+0132-0151,U+0154-024F,U+0259,U+1E00-1EFF,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'EB Garamond';font-style:normal;font-weight:400 600;font-display:swap;src:url(assets/fonts/ebgaramond-greek.woff2) format('woff2');unicode-range:U+0370-03FF,U+1F00-1FFF}
-@font-face{font-family:'EB Garamond';font-style:italic;font-weight:400 600;font-display:swap;src:url(assets/fonts/ebgaramond-italic-latin.woff2) format('woff2');unicode-range:U+0000-024F,U+0259,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2000-206F,U+2074,U+20AC,U+2122,U+2190-2199,U+2212,U+2215,U+25CF,U+FEFF,U+FFFD}
+@font-face{font-family:'EB Garamond';font-style:italic;font-weight:400 600;font-display:swap;src:url(assets/fonts/ebgaramond-italic-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2190-2199,U+2212,U+2215,U+25CF,U+FEFF,U+FFFD}
+@font-face{font-family:'EB Garamond';font-style:italic;font-weight:400 600;font-display:swap;src:url(assets/fonts/ebgaramond-italic-latinext.woff2) format('woff2');unicode-range:U+0100-0130,U+0132-0151,U+0154-024F,U+0259,U+1E00-1EFF,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'EB Garamond';font-style:italic;font-weight:400 600;font-display:swap;src:url(assets/fonts/ebgaramond-italic-greek.woff2) format('woff2');unicode-range:U+0370-03FF,U+1F00-1FFF}
 @font-face{font-family:'Poppins';font-style:normal;font-weight:300;font-display:swap;src:url(assets/fonts/poppins-300-latin.woff2) format('woff2')}
 @font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/poppins-400-latin.woff2) format('woff2')}
@@ -35,6 +48,7 @@
   --ink:#212C3B; --ink-2:#47536440; --muted:#6B7280;
   --line:#E3E1DA;
   --page-bg:var(--cream); --surface:var(--paper); --text:#212C3B;
+  --gold-ink:#8A6420; /* gold for small text on light backgrounds (the deep gold is too faint there) */
   --text-2:#4A5568; --text-3:#6B7280; --border:#E3E1DA;
   --display:'Cinzel',Georgia,serif;
   --body:'EB Garamond',Georgia,serif;
@@ -44,9 +58,9 @@
 *,*::before,*::after{box-sizing:inherit}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --page-bg:#0A1322; --surface:#101E33; --text:#E8EBF1; --text-2:#BAC3D2;
-  --text-3:#8B95A7; --border:#1F3150;}}
+  --text-3:#8B95A7; --border:#1F3150; --gold-ink:#E0C063;}}
 :root[data-theme="dark"]{--page-bg:#0A1322;--surface:#101E33;--text:#E8EBF1;
-  --text-2:#BAC3D2;--text-3:#8B95A7;--border:#1F3150;}
+  --text-2:#BAC3D2;--text-3:#8B95A7;--border:#1F3150;--gold-ink:#E0C063;}
 
 html{scroll-behavior:smooth;scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 body{margin:0;background:var(--page-bg);color:var(--text);
@@ -95,7 +109,7 @@ section{scroll-margin-top:calc(72px + env(safe-area-inset-top,0px))}
 .band.dark h2{color:#fff}
 .band.dark p{color:#C6CEDC}
 .kicker{font-family:var(--sans);font-size:.68rem;letter-spacing:.26em;
-  text-transform:uppercase;color:var(--gold-dp);margin-bottom:13px}
+  text-transform:uppercase;color:var(--gold-ink);margin-bottom:13px}
 h2{font-family:var(--display);font-weight:600;font-size:clamp(1.42rem,4vw,2.1rem);
   line-height:1.22;margin:0 0 18px;letter-spacing:.01em}
 h3{font-family:var(--sans);font-weight:500;font-size:1rem;margin:0 0 8px}
@@ -139,19 +153,19 @@ p.lead{font-size:clamp(1.08rem,2.5vw,1.26rem);line-height:1.6;color:var(--text)}
 .card.opens{cursor:pointer}
 .card.opens:hover{border-top-color:var(--gold-lt)}
 .card .tag{font-family:var(--sans);font-size:.63rem;letter-spacing:.19em;
-  text-transform:uppercase;color:var(--gold-dp);margin-bottom:9px}
+  text-transform:uppercase;color:var(--gold-ink);margin-bottom:9px}
 .card h3{font-family:var(--display);font-weight:600;font-size:1.1rem;line-height:1.3;
   color:var(--text);margin-bottom:9px}
 .card p{font-size:.99rem;line-height:1.55;margin:0 0 15px;flex:1;color:var(--text-2)}
 .card .foot{font-family:var(--sans);font-size:.7rem;letter-spacing:.1em;
   text-transform:uppercase;color:var(--text-3);display:flex;justify-content:space-between;
   align-items:center;gap:10px;border-top:1px solid var(--border);padding-top:12px}
-.card a.get{color:var(--gold-dp);text-decoration:none;font-weight:500}
+.card a.get{color:var(--gold-ink);text-decoration:none;font-weight:500}
 .card a.get:hover{text-decoration:underline}
-.soon{opacity:.72}.soon .tag{color:var(--text-3)}
+.soon{border-top-style:dashed}.soon .tag,.soon .pill{color:var(--text-3)}
 .pill{font-family:var(--sans);font-size:.61rem;letter-spacing:.13em;text-transform:uppercase;
   padding:4px 9px;border:1px solid var(--border);color:var(--text-3);white-space:nowrap}
-.pill.on{border-color:var(--gold-dp);color:var(--gold-dp)}
+.pill.on{border-color:var(--gold-ink);color:var(--gold-ink)}
 
 /* laptops and up: every content column shares one width */
 @media(min-width:900px){
@@ -321,26 +335,26 @@ body.menuopen{overflow:hidden}
   font-family:var(--display);font-weight:600;color:var(--text);
   font-size:clamp(1.05rem,.98rem + .25vw,1.2rem);line-height:1.4}
 .qitem summary::-webkit-details-marker{display:none}
-.qitem summary::after{content:"+";position:absolute;right:6px;top:15px;color:var(--gold-dp);font-size:1.2rem}
+.qitem summary::after{content:"+";position:absolute;right:6px;top:15px;color:var(--gold-ink);font-size:1.2rem}
 .qitem[open] summary::after{content:"\2013"}
-.qitem[open] summary{color:var(--gold-dp)}
+.qitem[open] summary{color:var(--gold-ink)}
 .qitem .qa-body{padding:0 0 22px}
 .qitem .qa-body p{margin:0 0 14px;color:var(--text-2);line-height:1.72}
 .qref{font-family:var(--sans);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--gold-dp);margin-bottom:10px}
+  color:var(--gold-ink);margin-bottom:10px}
 .qgo{font-family:var(--sans);font-size:.78rem;letter-spacing:.06em;color:var(--text);
   border:0;border-bottom:1px solid var(--gold);background:none;padding:0 0 2px;cursor:pointer}
-.qgo:hover{color:var(--gold-dp)}
+.qgo:hover{color:var(--gold-ink)}
 .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
 .tcard{background:var(--surface);border:1px solid var(--border);border-top:2.5px solid var(--gold);
   padding:20px 22px}
-.tcard h3{font-family:var(--display);font-size:1.1rem;color:var(--text);margin:0 0 12px;font-weight:600}
+.tcard h2{font-family:var(--display);font-size:1.1rem;color:var(--text);margin:0 0 12px;font-weight:600;line-height:1.3}
 .tcard ul{list-style:none;margin:0;padding:0}
 .tcard li{margin-bottom:11px;line-height:1.5}
 .tcard li button{display:block;width:100%;text-align:left;background:none;border:0;padding:0;cursor:pointer;font:inherit;color:inherit}
 .tcard.flash{box-shadow:0 0 0 3px rgba(224,192,99,.35)}
 .tcard .tr{font-family:var(--sans);font-size:.68rem;letter-spacing:.08em;
-  color:var(--gold-dp);display:block;margin-bottom:1px}
+  color:var(--gold-ink);display:block;margin-bottom:1px}
 .tcard .th{font-size:.96rem;color:var(--text-2)}
 .tcard li button:hover .th,.tcard li button:focus-visible .th{color:var(--text)}
 .gload{color:var(--text-3);font-style:italic;padding:20px 0}
@@ -622,7 +636,7 @@ body.menuopen{overflow:hidden}
 .hero-btns .btn-ghost{margin-left:0}
 @media(max-width:520px){.hero-btns{flex-direction:column}.hero-btns .btn{margin:0}}
 a.card{text-decoration:none;color:inherit}
-.card .get{font-family:var(--sans);font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;color:var(--gold-dp);
+.card .get{font-family:var(--sans);font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;color:var(--gold-ink);
   font-weight:500;border-top:1px solid var(--border);padding-top:12px}
 a.card:hover .get{text-decoration:underline}
 .starts{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:28px;
@@ -633,7 +647,7 @@ a.card:hover .get{text-decoration:underline}
 .start .go{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0}
 .start .go a,.lnk{font-family:var(--sans);font-size:.8rem;color:var(--text);text-decoration:none;
   border-bottom:1px solid var(--gold);padding-bottom:1px}
-.start .go a:hover,.lnk:hover{color:var(--gold-dp)}
+.start .go a:hover,.lnk:hover{color:var(--gold-ink)}
 .band.dark .lnk{color:#fff}.band.dark .lnk:hover{color:var(--gold-lt)}
 .btnrow{margin:22px 0 0}
 .btn{font-family:var(--sans)}
@@ -671,7 +685,8 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
 .f-sm p{color:#9AA5B8;margin:0 0 6px;max-width:60em}
 .f-sm a{color:#C9D1DE}
 .report:empty{display:none}
-.report .ph{border:1px dashed rgba(224,192,99,.5);padding:2px 8px;color:var(--gold-lt)}
+.report .ph{border:1px dashed var(--gold);padding:2px 8px;color:var(--gold-ink)}
+footer .report .ph{color:var(--gold-lt)}
 /* bible header */
 .bmeta{font-family:var(--sans);font-size:.72rem !important;letter-spacing:.04em;color:#8A96AB !important;margin-top:14px !important}
 .bmeta a{color:var(--gold-lt);text-decoration:none;border-bottom:1px solid rgba(224,192,99,.45)}
@@ -712,9 +727,9 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
 .nkey{display:flex;flex-direction:column;gap:6px;font-family:var(--sans);font-size:.82rem !important}
 .nkey .ndot{margin-right:8px;vertical-align:0}
 .nkey .ndot.brief{border-color:var(--text-3)}
-.nkey .ndot.complete,.nkey .ndot.progress{border-color:var(--gold-dp)}
-.nkey .ndot.complete{background:var(--gold-dp)}
-.nkey .ndot.progress{background:linear-gradient(90deg,var(--gold-dp) 50%,transparent 50%)}
+.nkey .ndot.complete,.nkey .ndot.progress{border-color:var(--gold-ink)}
+.nkey .ndot.complete{background:var(--gold-ink)}
+.nkey .ndot.progress{background:linear-gradient(90deg,var(--gold-ink) 50%,transparent 50%)}
 .nstat{font-family:var(--sans);font-size:.8rem;line-height:1.55;color:#C9D2DF;background:rgba(255,255,255,.05);
   border-left:3px solid var(--gold);padding:10px 12px;margin:0 0 18px}
 .nstat b{color:var(--gold-lt);font-weight:500}
@@ -737,7 +752,7 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
   padding:9px 0 9px 12px;cursor:pointer;color:var(--text-2);font-family:var(--body);font-size:1.03rem;line-height:1.55;
   text-decoration:none}
 .sitem:hover{border-left-color:var(--gold);background:rgba(224,192,99,.07);color:var(--text)}
-.sitem .sr{display:block;font-family:var(--sans);font-size:.72rem;font-weight:500;letter-spacing:.06em;color:var(--gold-dp)}
+.sitem .sr{display:block;font-family:var(--sans);font-size:.72rem;font-weight:500;letter-spacing:.06em;color:var(--gold-ink)}
 .sitem mark{background:rgba(224,192,99,.3);color:inherit;padding:0 1px}
 .smore{font-family:var(--sans);font-size:.76rem;background:none;border:1px solid var(--border);color:var(--text);
   padding:8px 12px;cursor:pointer;margin-top:6px}
@@ -748,8 +763,9 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
 .stance p b{color:var(--text);font-weight:600}
 .stance .conf{margin-right:6px}
 .stance .creed{margin:22px 0 8px}
+.stance .creed p{color:#C9D1DE}
 .stance .creed a{color:var(--gold-lt)}
-.stance .c-est{background:rgba(60,140,80,.16);color:#2F7A45}
+.stance .c-est{background:rgba(60,140,80,.16);color:#1F5E33}
 .stance .c-wide{background:rgba(60,110,170,.15);color:#2D5F9A}
 .stance .c-deb{background:rgba(190,130,30,.16);color:#8A5A12}
 .stance .c-div{background:rgba(190,80,60,.15);color:#9A3F2E}
@@ -992,7 +1008,7 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
       <h2>Where the notes stand</h2></div>
     <p class="lead"><span data-ns="complete">Matthew and Philippians</span> have complete notes: every passage, with
       comments on each verse, the history behind it, and the sources.</p>
-    <p><span data-ns="progress">26</span> more books have notes on every passage that are still being developed;
+    <p>Another <span data-ns="progress">26</span> books have notes on every passage that are still being developed;
       they will be produced to the same standard. The other books have a short note on each chapter for now. The
       book list in the Bible shows where each book has got to.</p>
     <p>The notes are written with the help of AI. In the complete notes, every claim is checked against the sources
@@ -1030,7 +1046,7 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
       public domain &middot; notes &copy; Ankyra, CC BY-NC 4.0</p>
   </div></div>
   <div class="bwrap">
-    <aside class="booknav" id="booknav">
+    <aside class="booknav" id="booknav" aria-label="Books of the Bible">
       <div class="tt">Books</div>
       <div class="bsearch"><input id="bfind" type="search" placeholder="Find a book"
         autocomplete="off"></div>
@@ -1043,7 +1059,7 @@ footer{background:var(--navy);color:#9AA5B8;padding:38px 0 calc(34px + env(safe-
     </div>
     <div class="splitter" id="splitter" role="separator" aria-orientation="vertical"
          title="Drag to resize the study notes &middot; double-click to reset"></div>
-    <aside class="notecol" id="notecol">
+    <aside class="notecol" id="notecol" aria-label="Study notes">
       <div class="nt">Study notes</div>
       <div id="notes"></div>
     </aside>
@@ -1695,7 +1711,10 @@ window.addEventListener("popstate", ev=>{
     if(!restoreY && hashRef.v) jumpVerse = hashRef.v;
     go("bible");
     if(BIBLE && current === "bible") renderBible();
-  } else go(v,a);
+  } else {
+    go(v,a);
+    if(v === "search"){ const i = document.getElementById("gq"); if(i) i.value = searchFromHash || ""; runSearch(searchFromHash || ""); }
+  }
   popping = false;
 });
 
@@ -1741,6 +1760,7 @@ function card(item){
 let BIBLE = null, loading = false;
 let curBook = "MAT", curCh = 1;
 let NOTE_INDEX = null;
+let placeChosen = false;      // true once a link or button has picked the passage to open
 const bookLoads = {};
 
 function getJSON(url){
@@ -1750,10 +1770,18 @@ function loadNoteIndex(){
   if(NOTE_INDEX) return Promise.resolve(NOTE_INDEX);
   return getJSON("assets/notes/index.json").then(d=>{ NOTE_INDEX = d; return d; }).catch(()=>null);
 }
+let glossaryLoad = null;      // the key words are needed to draw the notes' "Key words" buttons
+function loadGlossary(){
+  if(!glossaryLoad) glossaryLoad = getJSON("assets/glossary.json").then(g=>{ GLOSSARY = g || {}; }).catch(()=>{ glossaryLoad = null; });
+  return glossaryLoad;
+}
 function ensureBook(a){
   if(BIBLE.books[a]) return Promise.resolve();
   if(bookLoads[a]) return bookLoads[a];
-  bookLoads[a] = Promise.all([getJSON("assets/bible/"+a+".json"), getJSON("assets/notes/"+a+".json").catch(()=>({}))])
+  const early = window.EARLY && window.EARLY.book === a ? window.EARLY : null;
+  if(early) window.EARLY = null;
+  bookLoads[a] = Promise.all([early ? early.bible.catch(()=>getJSON("assets/bible/"+a+".json")) : getJSON("assets/bible/"+a+".json"),
+      (early ? early.notes : getJSON("assets/notes/"+a+".json")).catch(()=>({})), loadGlossary(), loadNoteIndex()])
     .then(([text, nb])=>{
       BIBLE.books[a] = text;
       if(nb.intro) NOTES.intros[a] = nb.intro;
@@ -1770,13 +1798,14 @@ async function initBible(){
   if(loading) return;
   loading = true;
   BIBLE = {index: BOOKS, books: {}};
-  if(hashRef && BOOKS.some(b=>b.a===hashRef.b)){
+  if(placeChosen){ /* a link has already chosen the passage */ }
+  else if(hashRef && BOOKS.some(b=>b.a===hashRef.b)){
     curBook = hashRef.b; curCh = hashRef.c; jumpVerse = hashRef.v;
   } else {
     const sv = lastPlace(); if(sv && BOOKS.some(b=>b.a===sv.b)){ curBook = sv.b; curCh = sv.c || 1; }
   }
   buildBookList();
-  getJSON("assets/glossary.json").then(g=>{ GLOSSARY = g || {}; }).catch(()=>{});
+  loadGlossary();
   loadNoteIndex().then(()=>{ buildBookList(); markBookList(); });
   loading = false;
   renderBible();
@@ -2120,7 +2149,7 @@ function openRef(b, c, v, card){
   saveScroll();
   pendingFrom = bookName(curBook)+" "+curCh;
   const same = (b === curBook && +c === +curCh);
-  curBook = b; curCh = Math.min(Math.max(+c,1), bm.c);
+  curBook = b; curCh = Math.min(Math.max(+c,1), bm.c); placeChosen = true;
   if(same){
     // same chapter: no reload, just move to the verse and its card
     pendingFrom = null;
@@ -2177,7 +2206,7 @@ function linkRefs(html, local){
   for(let i=0;i<parts.length;i++){
     const p = parts[i];
     if(p.charAt(0) === "<"){
-      if(/^<a[\s>]/i.test(p)) inA++; else if(/^<\/a>/i.test(p)) inA = Math.max(0, inA-1);
+      if(/^<(a|button)[\s>]/i.test(p)) inA++; else if(/^<\/(a|button)>/i.test(p)) inA = Math.max(0, inA-1);
       continue;
     }
     if(inA || !p) continue;
@@ -2340,10 +2369,13 @@ function renderNotes(meta){
   }
 
   if(intro) html = html.replace(/<details class="bintro[\s\S]*?<\/details>/g, m=>linkRefs(m, true));
-  document.getElementById("notes").innerHTML = html;
+  // fill only the notes column that is showing (beside the text on wide screens, below it otherwise)
+  const wideNow = window.matchMedia('(min-width:1101px)').matches;
+  document.getElementById("notes").innerHTML = wideNow ? html : "";
   const mob = document.getElementById("mobnotes");
-  if(mob) mob.innerHTML = '<div class="wrap" style="padding:0"><div class="nt">Study notes</div>'+
+  if(mob) mob.innerHTML = wideNow ? "" : '<div class="wrap" style="padding:0"><div class="nt">Study notes</div>'+
     html.replace(/id="pc-/g,'id="mpc-')+'</div>';
+  notesWide = wideNow;
 
   // passage jump bar and card references
   document.querySelectorAll('.pjump button').forEach(b=>b.addEventListener('click', ()=>showCard(b.getAttribute('data-jv'), true)));
@@ -2368,6 +2400,11 @@ function renderNotes(meta){
   });
 }
 
+let notesWide = null;
+window.matchMedia('(min-width:1101px)').addEventListener("change", e=>{
+  if(current === "bible" && BIBLE && BIBLE.books[curBook] && notesWide !== e.matches){
+    const meta = BOOKS.find(x=>x.a===curBook); renderNotes(meta); }
+});
 /* key-word chips and "what do the labels mean" links, wired once for both note columns */
 document.addEventListener('click', ev=>{
   const b = ev.target.closest('.kwb');
@@ -2433,7 +2470,7 @@ function wirePdfCards(){
 let GUIDES = null, guidesLoading = false;
 
 function openPassage(bk, ch, v){
-  curBook = bk; curCh = parseInt(ch,10) || 1; jumpVerse = v || null;
+  curBook = bk; curCh = parseInt(ch,10) || 1; jumpVerse = v || null; placeChosen = true;
   go("bible");
   if(BIBLE) renderBible();
 }
@@ -2477,7 +2514,7 @@ function renderTopics(){
         '<span class="tr">'+i.n+' '+i.c+':'+i.v+'</span>'+
         '<span class="th">'+(i.g || i.h)+'</span></button></li>';
     }).join("");
-    return '<div class="tcard" data-topic="'+name.replace(/"/g,'')+'"><h3>'+name+'</h3><ul>'+items+'</ul></div>';
+    return '<div class="tcard" data-topic="'+name.replace(/"/g,'')+'"><h2>'+name+'</h2><ul>'+items+'</ul></div>';
   }).join("");
   el.querySelectorAll("button[data-b]").forEach(function(li){
     li.addEventListener("click", function(){ saveScroll(); pendingCard = li.dataset.v; openPassage(li.dataset.b, li.dataset.c, li.dataset.v); });
@@ -2601,6 +2638,7 @@ function paintReport(){
    (John 3:16, jn 3, 1 cor 13:4-7, ps 23) goes straight to the passage. */
 let SEARCH = null, searchLoading = null, VERSES_ALL = null, versesLoading = null;
 let searchTimer = null, lastQuery = "", searchFilter = "all", searchMore = {};
+const REFPREV = {};   // verse text shown under a "Go to" reference, by query
 
 function searchFor(q){ searchFromHash = q; go("search"); const i = document.getElementById("gq"); if(i) i.value = q; runSearch(q); }
 
@@ -2626,7 +2664,7 @@ function loadSearch(){
   searchLoading = Promise.all([
     getJSON("assets/notes/search.json").catch(()=>({h:[], b:[]})),
     GUIDES ? Promise.resolve(GUIDES) : getJSON("assets/guides.json").then(g=>{ GUIDES = g; return g; }).catch(()=>({questions:[], topics:{}})),
-    Object.keys(GLOSSARY).length ? Promise.resolve(GLOSSARY) : getJSON("assets/glossary.json").then(g=>{ GLOSSARY = g; return g; }).catch(()=>({})),
+    loadGlossary().then(()=>GLOSSARY),
     loadNoteIndex()
   ]).then(([nt, gd, gl])=>{
     SEARCH = {notes: nt.h || [], brief: nt.b || [], guides: gd, glossary: gl};
@@ -2772,8 +2810,8 @@ function paintSearch(q){
     refHTML = '<button type="button" class="sgo" data-gb="'+ref.a+'" data-gc="'+(ref.c||1)+'" data-gv="'+(ref.v||"")+'">'+
       '<span class="sgo-k">Go to</span><span class="sgo-t">'+label+'</span>'+
       (st && !ref.c ? '<span class="sgo-s">'+STATUS_TEXT[st]+'</span>' : '')+
-      '<span class="sgo-p" id="sgoprev"></span></button>';
-    if(ref.c && ref.v){
+      '<span class="sgo-p" id="sgoprev">'+esc2(REFPREV[q] || "")+'</span></button>';
+    if(ref.c && ref.v && !REFPREV[q]){
       if(!BIBLE) BIBLE = {index: BOOKS, books: {}};
       ensureBook(ref.a).then(()=>{
         const el = document.getElementById("sgoprev"); if(!el || lastQuery !== q) return;
@@ -2781,11 +2819,13 @@ function paintSearch(q){
         const v1 = +ref.v, v2 = +(ref.v2 || ref.v); let out = "", cur = null;
         ch.b.forEach(blk=>{ if(blk.k==="s"||blk.k==="r"||blk.k==="b") return;
           blk.c.forEach(it=>{ if(typeof it === "string"){ if(cur>=v1 && cur<=v2) out += " " + stripNotes(it); } else if(it.v) cur = +it.v; }); });
-        el.textContent = out.trim().slice(0, 320) + (out.length > 320 ? "…" : "");
+        REFPREV[q] = out.trim().length > 320 ? out.trim().slice(0, 320) + "…" : out.trim();
+        el.textContent = REFPREV[q];
       }).catch(()=>{});
     }
   }
-  if(Q.words.length || Q.phrase){
+  const wordSearch = !(ref && ref.c) && (Q.words.length || Q.phrase);   // a chapter or verse reference needs nothing else
+  if(wordSearch){
     /* 2. note headings and big ideas */
     const notes = [];
     SEARCH.notes.forEach(r=>{
@@ -2842,10 +2882,10 @@ function paintSearch(q){
   }
   groups.forEach(g=>g[2].sort((x,y)=>y.s-x.s));
   /* 7. the Bible text (loaded the first time it is needed) */
-  const verseGroup = ["bible", "Bible text", null];
+  const verseGroup = ["bible", "Bible text", wordSearch ? null : []];
   groups.push(verseGroup);
   paintSearchGroups(box, q, refHTML, groups);
-  if(Q.words.length || Q.phrase){
+  if(wordSearch){
     loadVerses().then(vs=>{
       if(lastQuery !== q) return;
       const hits = [];
@@ -2867,7 +2907,7 @@ function paintSearchGroups(box, q, refHTML, groups){
   const total = counts.reduce((a,b)=>a+b,0);
   const versePending = groups.some(g=>g[0]==="bible" && g[2] === null);
   let html = refHTML;
-  html += '<div class="sfilters" role="group" aria-label="Show results from">'+
+  if(total || versePending) html += '<div class="sfilters" role="group" aria-label="Show results from">'+
     '<button type="button" class="chip'+(searchFilter==="all"?' on':'')+'" data-sf="all" aria-pressed="'+(searchFilter==="all")+'">All'+(versePending?'':' '+total)+'</button>'+
     groups.map((g,i)=> counts[i] || (g[0]==="bible" && versePending) ? '<button type="button" class="chip'+(searchFilter===g[0]?' on':'')+'" data-sf="'+g[0]+'" aria-pressed="'+(searchFilter===g[0])+'">'+g[1]+' '+(g[2]===null?'&hellip;':counts[i])+'</button>' : '').join("")+
     '</div>';
@@ -3026,6 +3066,8 @@ function paintNotesNow(){
   const list = done.length > 1 ? done.slice(0,-1).join(", ") + " and " + done[done.length-1] : (done[0] || "");
   document.querySelectorAll('[data-ns="complete"]').forEach(e=>{ if(list) e.textContent = list; });
   document.querySelectorAll('[data-ns="progress"]').forEach(e=>{ e.textContent = prog < words.length ? words[prog] : String(prog); });
+  const pb = document.querySelector('[data-ns="progress"]');
+  if(pb && prog === 1 && pb.nextSibling) pb.nextSibling.textContent = pb.nextSibling.textContent.replace(/^ books have/, " book has");
   const lead = document.querySelector('[data-ns="complete"]');
   if(lead && done.length === 1) lead.nextSibling.textContent = lead.nextSibling.textContent.replace(/^ have/," has");
 }
